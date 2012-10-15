@@ -12,15 +12,15 @@ public class Scene_Game : Scene {
 		target_entity = Entity.Create<Entity> ( "man1" );
 		target_entity.Init ( "speed", 100 );
 		AddEntity ( target_entity );
-		target_entity.transform.parent = SceneManager.GetInstance().parent.transform;
-		target_entity.transform.localPosition = new Vector3 ( 0, 0, 0 );
+		target_entity.transform.parent = SceneManager.GetInstance().entities_parent.transform;
+		target_entity.transform.localPosition = new Vector3 ( 0, 32, 0 );
 		
 		// man2
 		target_entity = Entity.Create<Entity> ( "man1" );
 		target_entity.Init ( null );
 		AddEntity ( target_entity );
-		target_entity.transform.parent = SceneManager.GetInstance().parent.transform;
-		target_entity.transform.localPosition = new Vector3 ( 32, 0, 0 );
+		target_entity.transform.parent = SceneManager.GetInstance().entities_parent.transform;
+		target_entity.transform.localPosition = new Vector3 ( 32, 32, 0 );
 	}
 	
 	void OnBackBtnClicked ( GameObject obj ) {

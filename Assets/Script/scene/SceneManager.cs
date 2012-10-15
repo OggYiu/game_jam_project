@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class SceneManager : MonoBehaviour {
 	[SerializeField] string start_page_id_ = "";
+	[SerializeField] GameObject entities_parent_ = null;
+	
 	string page_resource_path_ = "ScenePrefab";
 	Scene cur_scene_ = null;
 	bool is_resolved_ = false;
 	bool is_started_ = false;
 	string lazy_target_page_id_ = "";
 	Hashtable lazy_target_args_ = null;
-	public GameObject parent;
 	
 //	Dictionary<string, int> page_registry_ = new Dictionary<string, int>();
 	void Start () {
@@ -81,6 +82,13 @@ public class SceneManager : MonoBehaviour {
         return s_instance;
     }
 	
+	public GameObject entities_parent {
+		get { return entities_parent_; }
+	}
+	
+	public void haha () {
+		Debug.Log ( "really haha" );
+	}
 //	public void RegisterPage_ ( string page_prefab_name ) {
 //		if ( page_registry_
 //		page_registry_.Add ( page_prefab_name, index );

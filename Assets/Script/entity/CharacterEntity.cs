@@ -21,5 +21,6 @@ public class CharacterEntity : Entity
 		
 		this.transform.localPosition = new Vector3 ( this.transform.localPosition.x + deltaTime * speed_, this.transform.localPosition.y, this.transform.localPosition.z );
 	}
+	
 }
 

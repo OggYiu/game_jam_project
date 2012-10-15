@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Entity : Process {
+public class Entity : Process, IEntity {
 	string entity_id_ = "";
 	
 	override protected void _Resolver ( Hashtable args ) {
@@ -27,5 +27,9 @@ public class Entity : Process {
 		target_gameobj = (GameObject)(GameObject.Instantiate ( entity_obj ));
 		target_entity = target_gameobj.GetComponent<T>();
 		return target_entity;
+	}
+	
+	public void OnClicked () {
+		Debug.Log ( "<Entity::OnClicked> entity " + this.gameObject.name + " on clicked!" );
 	}
 }
