@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_3;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -97,11 +97,17 @@
      <Compile Include="Assets\Script\game\GameApp.cs" />
      <Compile Include="Assets\Script\game\Scene_Game.cs" />
      <Compile Include="Assets\Script\game\Scene_Intro.cs" />
+     <Compile Include="Assets\Script\interfaces\EMouseButton.cs" />
+     <Compile Include="Assets\Script\interfaces\EMouseCursor.cs" />
      <Compile Include="Assets\Script\interfaces\IDisposable.cs" />
      <Compile Include="Assets\Script\interfaces\IEntity.cs" />
      <Compile Include="Assets\Script\interfaces\IEntityCollection.cs" />
+     <Compile Include="Assets\Script\interfaces\IInputKeyboard.cs" />
+     <Compile Include="Assets\Script\interfaces\IInputManager.cs" />
+     <Compile Include="Assets\Script\interfaces\IInputMouse.cs" />
      <Compile Include="Assets\Script\interfaces\IPauseable.cs" />
      <Compile Include="Assets\Script\interfaces\IProcess.cs" />
+     <Compile Include="Assets\Script\interfaces\IResettable.cs" />
      <Compile Include="Assets\Script\interfaces\IUpdateable.cs" />
      <Compile Include="Assets\Script\scene\Scene.cs" />
      <Compile Include="Assets\Script\scene\SceneManager.cs" />
