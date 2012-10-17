@@ -97,8 +97,10 @@
      <Compile Include="Assets\Script\game\GameApp.cs" />
      <Compile Include="Assets\Script\game\Scene_Game.cs" />
      <Compile Include="Assets\Script\game\Scene_Intro.cs" />
+     <Compile Include="Assets\Script\interfaces\EAudioChannel.cs" />
      <Compile Include="Assets\Script\interfaces\EMouseButton.cs" />
      <Compile Include="Assets\Script\interfaces\EMouseCursor.cs" />
+     <Compile Include="Assets\Script\interfaces\IAudioManager.cs" />
      <Compile Include="Assets\Script\interfaces\IDisposable.cs" />
      <Compile Include="Assets\Script\interfaces\IEntity.cs" />
      <Compile Include="Assets\Script\interfaces\IEntityCollection.cs" />

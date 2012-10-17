@@ -4,7 +4,7 @@ using System.Collections;
 public class GameApp : MonoBehaviour {
 	[SerializeField] Camera main_camera_ = null;
 	[SerializeField] Material gl_material_ = null;
-	[SerializeField] Vector3 last_mouse_pos_;
+	[SerializeField] Vector3 last_mouse_pos_ = Vector3.zero;
 	
 	// Use this for initialization
 	void Start () {
@@ -15,6 +15,9 @@ public class GameApp : MonoBehaviour {
 	    if ( gl_material_ == null ) {
 			Debug.LogError ( "<GameApp::Start>, invalid gl_material_" );
 	    }
+		
+//		AudioSource audio_source = null;
+//		audio_source.spread = 
 	}
 	
 	// Update is called once per frame
