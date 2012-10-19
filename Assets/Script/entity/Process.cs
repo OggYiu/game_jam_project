@@ -7,7 +7,9 @@ using System.Collections;
  * <p>For API documentation please review the corresponding Interfaces.</p>
  * @author	Robert Fell
  */
-public class Process : MonoBehaviour, IProcess {
+public class Process : IProcess {
+	IKernel _kernel;
+	ITools _tools;
 	float age_ = 0;
 	float updates_ = 0;
 	protected bool is_active_ = true;
@@ -15,56 +17,28 @@ public class Process : MonoBehaviour, IProcess {
 	bool is_started_ = false;
 	bool is_resolved_ = false;
 	Hashtable init_args_ = null;
-	
-	static Hashtable Hash(params object[] args) {
-		Hashtable hashTable = new Hashtable(args.Length/2);
-		if (args.Length %2 != 0) {
-			Debug.LogError("Tween Error: Hash requires an even number of arguments!"); 
-			return null;
-		}else{
-			int i = 0;
-			while(i < args.Length - 1) {
-				hashTable.Add(args[i], args[i+1]);
-				i += 2;
-			}
-			return hashTable;
-		}
-	}
-	
-	static Hashtable CleanArgs(Hashtable args){
-		Hashtable argsCopy = new Hashtable(args.Count);
-		Hashtable argsCaseUnified = new Hashtable(args.Count);
-		
-		foreach (DictionaryEntry item in args) {
-			argsCopy.Add(item.Key, item.Value);
-		}
-		
-		foreach (DictionaryEntry item in argsCopy) {
-			if(item.Value.GetType() == typeof(System.Int32)){
-				int original = (int)item.Value;
-				float casted = (float)original;
-				args[item.Key] = casted;
-			}
-			if(item.Value.GetType() == typeof(System.Double)){
-				double original = (double)item.Value;
-				float casted = (float)original;
-				args[item.Key] = casted;
-			}
-		}	
-		
-		//unify parameter case:
-		foreach (DictionaryEntry item in args) {
-			argsCaseUnified.Add(item.Key.ToString().ToLower(), item.Value);
-		}	
-		
-		//swap back case unification:
-		args = argsCaseUnified;
-				
-		return args;
-	}	
+	bool _isEntity = false;
 	
 	void Start () {
 		is_started_ = true;
+	}
+	
+	public Process ( IKernel p_kernel )
+	{
+		_kernel = p_kernel;
+		_tools = _kernel.Tools ();
+		_isEntity =  this.GetType() == IEntity;
+		_init();
+	}
+	
+	virtual protected void _Init()
+	{
+//		Reflect.setField( this, "isActive", true ); // avoids the setter
+		_isIsActiveSetterBypassed = true;
+		isActive = true;
+		isDisposed = false;
+		_age = 0;
+		_updates = 0;
 	}
 	
 	public void Init ( params object[] args ) {
@@ -76,6 +50,8 @@ public class Process : MonoBehaviour, IProcess {
 		}
 	}
 	
+//	override void _Init()
+
 	virtual protected void _Resolver ( Hashtable args ) {
 	}
 	
@@ -199,6 +175,53 @@ public class Process : MonoBehaviour, IProcess {
 	{
 		// override me
 	}
+	
+	static Hashtable Hash ( params object[] args ) {
+		Hashtable hashTable = new Hashtable(args.Length/2);
+		if (args.Length %2 != 0) {
+			Debug.LogError("Tween Error: Hash requires an even number of arguments!"); 
+			return null;
+		}else{
+			int i = 0;
+			while(i < args.Length - 1) {
+				hashTable.Add(args[i], args[i+1]);
+				i += 2;
+			}
+			return hashTable;
+		}
+	}
+	
+	static Hashtable CleanArgs(Hashtable args){
+		Hashtable argsCopy = new Hashtable(args.Count);
+		Hashtable argsCaseUnified = new Hashtable(args.Count);
+		
+		foreach (DictionaryEntry item in args) {
+			argsCopy.Add(item.Key, item.Value);
+		}
+		
+		foreach (DictionaryEntry item in argsCopy) {
+			if(item.Value.GetType() == typeof(System.Int32)){
+				int original = (int)item.Value;
+				float casted = (float)original;
+				args[item.Key] = casted;
+			}
+			if(item.Value.GetType() == typeof(System.Double)){
+				double original = (double)item.Value;
+				float casted = (float)original;
+				args[item.Key] = casted;
+			}
+		}	
+		
+		//unify parameter case:
+		foreach (DictionaryEntry item in args) {
+			argsCaseUnified.Add(item.Key.ToString().ToLower(), item.Value);
+		}	
+		
+		//swap back case unification:
+		args = argsCaseUnified;
+				
+		return args;
+	}	
 	
 }
 

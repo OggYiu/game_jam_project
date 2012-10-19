@@ -2,74 +2,81 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Scene : Process, IEntityCollection {
-	List<Entity> entities_ = new List<Entity>();
-	
-	public void AddEntity ( Entity entity )
+/**
+ * The Scene class provides a minimalist implementation of the IScene interface.
+ * <p>For API documentation please review the corresponding Interfaces.</p>
+ * @author	Robert Fell
+ */
+public class Scene : Process, IScene
+{
+	public EScene Type () { return _type; }
+	public IView View () { return _view; }
+	public bool IsDisposable () { return _isDisposable; }
+	public bool IsPauseable () { return _isPauseable; }
+	public bool IsMuteable () { return _isMuteable; }
+	public bool IsSessionSavedOnNext () { return _isSessionSavedOnNext; }
+
+	private IEntity _Entity () { return _entity; }
+
+	public Scene ( IKernel p_kernel, EScene p_type, bool p_isPauseable = false, bool p_isMuteable = true, bool p_isSessionSavedOnNext = false ) 
 	{
-		if ( is_disposed_ ) {
-			Debug.LogError ( "<Scene::AddEntity>, disposed!" );
-			return;
-		}
-		if ( entity == null ) {
-			Debug.LogError ( "<Scene::AddEntity>, invalid entity!" );
-			return;
-		}
-		
-		for ( int i = 0; i < entities_.Count; ++i ) {
-			if ( entities_[i] == entity ) {
-				Debug.LogError ( "<Scene::AddEntity>, entity already added!" );
-				return ;
-			}
-		}
-		
-		entities_.Add ( entity );
+		//TODO: these defaults aren't working for 2.09 (all set to false)?
+		_type = p_type;
+		_isPauseable = p_isPauseable;
+		_isMuteable = p_isMuteable;
+		_isSessionSavedOnNext = p_isSessionSavedOnNext;
+		super( p_kernel );
 	}
 	
-	public void RemoveEntity ( Entity entity ) {
-		if ( is_disposed_ ) {
-			Debug.LogError ( "<Scene::RemoveEntity>, disposed!" );
-			return;
-		}
-		
-		for ( int i = 0; i < entities_.Count; ++i ) {
-			if ( entities_[i] == entity ) {
-				entities_.Remove ( entity );
-				break;
-			}
-		}
-	}
-	
-	public Entity GetEntityById ( string id ) {
-		if ( is_disposed_ ) {
-			Debug.LogError ( "<Scene::RemoveEntity>, disposed!" );
-			return null;
-		}
-		
-		for ( int i = 0; i < entities_.Count; ++i ) {
-			if ( entities_[i].GetID() == id ) {
-				return entities_[i];
-			}
-		}
-		
-		return null;
-	}
-	
-	protected override void _Updater ( float deltaTime = 0 )
+	override protected void _Init()
 	{
-		base._Updater (deltaTime);
-		
-		for ( int i = 0; i < entities_.Count; ++i ) {
-			entities_[i].OnUpdate ( deltaTime );
-		}
+		super._init();
+		_isDisposable = true;
+		_entity = new Entity( _kernel );
+		_view = _entity.view;
 	}
 	
-	protected override void _Disposer ()
+	override protected void _Updater ( float p_deltaTime )
 	{
-		base._Disposer ();
-		
-		for ( int i = 0; i < entities_.Count; ++i ) {
-			DestroyObject ( entities_[i].gameObject );
-		}
+		super._updater( p_deltaTime );
+		_entity.update( p_deltaTime );
+	}
+	
+	override protected void _Disposer()
+	{
+		_entity.dispose();
+		view.dispose();
+		super._disposer();		
+	}
+	
+	public void addEntity ( IEntity p_entity, EAgenda p_agenda, bool p_isAddedToView = false, int p_viewPriority = 0 )
+	{
+		_entity.addEntity( p_entity, p_agenda, p_isAddedToView, p_viewPriority );
+	}
+	
+	public void removeEntity( IEntity p_entity, EAgenda p_agenda, bool p_isRemovedFromView = false )
+	{
+		_entity.removeEntity( p_entity, p_agenda, p_isRemovedFromView );
+	}
+	
+	public List<IEntity> getEntities( EAgenda p_agenda )
+	{
+		return _entity.getEntities( p_agenda );
+	}
+	
+	public List<T> getEntitiesByClass<T>( T p_classType, EAgenda p_agenda, bool p_isBubbleDown = false, bool p_isBubbleUp = false, bool p_isBubbleEverywhere = false )
+	{
+		return _entity.getEntitiesByClass( p_classType, p_agenda, p_isBubbleDown, p_isBubbleUp, false );
+	}
+	
+	public IEntity getEntityById( string p_id, EAgenda p_agenda, bool p_isBubbleDown = false, bool p_isBubbleUp = false, bool p_isBubbleEverywhere = false )
+	{
+		return _entity.getEntityById( p_id, p_agenda, p_isBubbleDown, p_isBubbleUp, false );
+	}
+	
+	private IView _get_view()
+	{
+		return view;
 	}
 }
+
