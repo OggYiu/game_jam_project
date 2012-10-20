@@ -12,6 +12,11 @@ public class GameSettings : MonoBehaviour {
 	public int HUMAN_ACTION_POINT = 1;
 	public int MONSTER_ACTION_POINT = 2;
 	public int HUMAN_AVOID_DISTANCE = 4;
+	public int HUMAN_HEALTH = 1;
+	public int MONSTER_HEALTH = 2;
+	public int HUMAN_DAMAGE = 1;
+	public int MONSTER_DAMAGE = 1;
+	public float ACTION_INTERVAL = 1;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

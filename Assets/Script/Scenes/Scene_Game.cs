@@ -44,7 +44,7 @@ public class Scene_Game : Scene {
 		base._Updater (deltaTime);
 		
 		if ( IsAllActionDone() ) {
-			wait_time_ = 1;
+			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
 			NextTurn ();
 		}
 		
@@ -54,18 +54,11 @@ public class Scene_Game : Scene {
 			// human first
 			HumanDoAction ();
 			MonsterDoAction ();
+			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
 		}
 	}
 	
 	override public void MouseButtonDownHandler ( int button_index ) {
-//		if ( button_index == 0 ) {
-//			next_action_ = true;
-//		} else {
-//			next_turn_ = true;
-//			next_action_ = true;
-//		}
-//		turn_ended_ = false;
-		
 		NextTurn ();
 	}
 	
@@ -93,7 +86,9 @@ public class Scene_Game : Scene {
 			if ( target_game_actor.Type() != ActorType.human ) {
 				continue;
 			}
-			target_game_actor.DoAction ();
+			if ( target_game_actor.action_point > 0 ) {
+				target_game_actor.DoAction ();
+			}
 		}
 	}
 	

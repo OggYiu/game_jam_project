@@ -59,6 +59,16 @@ public class Scene : Entity {
 	{
 		base._Updater (deltaTime);
 		
+		// remove dude first
+		for ( int i = 0; i < entities_.Count; ++i ) {
+			if ( entities_[i].need_removed ) {
+				entities_[i].Dispose ();
+				Destroy ( entities_[i].gameObject );
+				entities_.RemoveAt ( i );
+				--i;
+			}
+		}
+		
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			entities_[i].OnUpdate ( deltaTime );
 		}
