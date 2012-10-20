@@ -72,4 +72,7 @@ public class Scene : Entity {
 			DestroyObject ( entities_[i].gameObject );
 		}
 	}
+	
+	virtual public void MouseButtonDownHandler ( int button_index ) {
+	}
 }

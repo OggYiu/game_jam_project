@@ -29,12 +29,24 @@ public class GameActor : Entity
 	}
 	
 	public void MoveTo ( Directions direction ) {
-		if ( 
 	}
 	
 	override protected void _Updater ( float deltaTime = 0 ) {
 	}
 	
-	
+	public static GameActor Create ( string id ) {
+		string target_path = "Prefabs/" + id;
+		Object target_prefab = Resources.Load ( target_path );
+		if ( target_prefab == null ) {
+			Debug.LogError ( "<GameActor::Create>, invalid path :" + target_path );
+		}
+		GameActor target_actor = ((GameObject)GameObject.Instantiate ( target_prefab )).GetComponent<GameActor>();
+		if ( target_actor == null ) {
+			Debug.LogError ( "<GameActor::Create>, game actor object not found" );
+		}
+		target_actor.transform.parent = SceneManager.GetInstance().entities_parent.transform;
+		target_actor.transform.localPosition = new Vector3 ( 0, 0, 0 );
+		return target_actor;
+	}
 }
 

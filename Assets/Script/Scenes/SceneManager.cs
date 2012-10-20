@@ -2,35 +2,24 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SceneManager : MonoBehaviour {
-	[SerializeField] string start_page_id_ = "";
+public class SceneManager : Entity {
 	[SerializeField] GameObject entities_parent_ = null;
+	[SerializeField] string start_page_id_ = "";
 	
-	string page_resource_path_ = "ScenePrefab";
 	Scene cur_scene_ = null;
-	bool is_resolved_ = false;
-	bool is_started_ = false;
 	string lazy_target_page_id_ = "";
 	Hashtable lazy_target_args_ = null;
+	string page_resource_path_ = "Prefabs";
 	
-//	Dictionary<string, int> page_registry_ = new Dictionary<string, int>();
-	void Start () {
-		is_started_ = true;
-	}
-	
-	public void Init () {
+	protected override void _Resolver (Hashtable args)
+	{
+		base._Resolver (args);
 		ChangeScene ( start_page_id_, null );
 	}
 	
-	void Update() {
-		if ( !is_started_ ) {
-			return;
-		}
-		
-		if ( !is_resolved_ ) {
-			is_resolved_ = true;
-			Init ();
-		}
+	protected override void _Updater (float deltaTime)
+	{
+		base._Updater (deltaTime);
 		
 		if ( lazy_target_page_id_.Length > 0 ) {
 			ChangeScene_ ( lazy_target_page_id_, lazy_target_args_ );
@@ -76,8 +65,6 @@ public class SceneManager : MonoBehaviour {
             s_instance = (SceneManager)GameObject.FindObjectOfType ( typeof ( SceneManager ) );
             if ( !s_instance )
                 Debug.LogError("There needs to be one active MyClass script on a GameObject in your scene.");
-			else 
-				s_instance.Init ();
         }
         return s_instance;
     }
@@ -86,8 +73,10 @@ public class SceneManager : MonoBehaviour {
 		get { return entities_parent_; }
 	}
 	
-	public void haha () {
-		Debug.Log ( "really haha" );
+	public void MouseButtonDownHandler ( int button_index ) {
+		if ( cur_scene_ != null ) {
+			cur_scene_.MouseButtonDownHandler ( button_index );
+		}
 	}
 //	public void RegisterPage_ ( string page_prefab_name ) {
 //		if ( page_registry_

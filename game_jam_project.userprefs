@@ -1,8 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../zombie_project/zombie_simuation_April26_before_git_push/zombieTown/Assets/Script/GLRenderer/GameGLMap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Navigation/NavigationMap.cs">
     <Files>
-      <File FileName="../../zombie_project/zombie_simuation_April26_before_git_push/zombieTown/Assets/Script/GLRenderer/GameGLMap.cs" Line="1" Column="1" />
+      <File FileName="../../zombie_project/zombie_simuation_April26_before_git_push/zombieTown/Assets/Script/GLRenderer/GameGLMap.cs" Line="16" Column="5" />
+      <File FileName="Assets/Script/GLRenderer/GameGLMap.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/PathFinding/NavGraph.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GameApp.cs" Line="76" Column="33" />
+      <File FileName="Assets/Script/PathFinding/IndexedPriorityQLow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GLRenderer/GameGLRenderer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Entity.cs" Line="16" Column="19" />
+      <File FileName="Assets/Script/GLRenderer/GameMapMesh.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="10" Column="49" />
+      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/GameActor.cs" Line="31" Column="26" />
+      <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/PathFinding/NavGraphRenderer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="23" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,8 +24,12 @@
             <Node name="Assets" expanded="True">
               <Node name="Script" expanded="True">
                 <Node name="Entities" expanded="True" />
-                <Node name="Navigation" selected="True" />
+                <Node name="GLRenderer" expanded="True" />
+                <Node name="Navigation" expanded="True">
+                  <Node name="NavigationMap.cs" selected="True" />
+                </Node>
                 <Node name="PathFinding" expanded="True" />
+                <Node name="Share" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -30,8 +47,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/tse/Documents/ppp/game_jam_project/Assets/Script/GameApp.cs" line="33" />
-      <Breakpoint file="/Users/tse/Documents/ppp/game_jam_project/Assets/Script/GameApp.cs" line="71" />
+      <Breakpoint file="/Users/tse/Documents/ppp/game_jam_project/Assets/Script/Navigation/NavigationMap.cs" line="14" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -7,7 +7,7 @@ public class GameMeshMap : MonoBehaviour
 	public GameMapMesh gameMapMeshPrefab = null;
 	
 	public void GenerateMap() {
-		this.transform.position = new Vector3( 0, 0, GameSettings.GetInstance().MESH_MAP_Z_ORDER );
+		this.transform.position = new Vector3( 0, 0, 0 );
 		int meshArraySize = GameSettings.GetInstance().MAP_TILE_ROW_COUNT * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT;
 		meshes_ = new GameMapMesh[meshArraySize];
 		

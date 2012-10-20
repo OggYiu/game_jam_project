@@ -10,12 +10,8 @@ public class GameSettings : MonoBehaviour {
 	public int MAP_HEIGHT = 960;
 	public int MAP_TILE_ROW_COUNT = 6;
 	public int MAP_TILE_COLUMN_COUNT = 6;
-	public int TERRAIN_Z_ORDER = 2;
-	public int BUILDING_Z_ORDER = 0;
-	public int OBJECT_Z_ORDER = -2;
-	public int MESH_MAP_Z_ORDER = -3;
-	public float HUMAN_VELOCITY = 100.0f;
-	public float MONSTER_VELOCITY = 100.0f;
+	public int HUMAN_ACTION_POINT = 1;
+	public int MONSTER_ACTION_POINT = 2;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

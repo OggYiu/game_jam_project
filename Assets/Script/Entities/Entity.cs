@@ -5,6 +5,13 @@ using System.Collections.Generic;
 public class Entity : MonoBehaviour {
 	string entity_id_ = "";
 	protected bool is_disposed_ = false;
+	bool is_started_ = false;
+	bool is_resolved_ = false;
+	Hashtable init_args_ = null;
+	
+	void Start () {
+		is_started_ = true;
+	}
 	
 	virtual protected void _Resolver ( Hashtable args ) {
 		entity_id_ = System.Guid.NewGuid().ToString();
@@ -15,7 +22,7 @@ public class Entity : MonoBehaviour {
 	}
 	
 	public void Init ( Hashtable args ) {
-		_Initer ( args );
+		init_args_ = args;
 	}
 	
 	virtual protected void OnClicked () {
@@ -27,10 +34,12 @@ public class Entity : MonoBehaviour {
 	}
 	
 	public void OnUpdate ( float deltaTime = 0 ) {
+		if ( is_started_ && !is_resolved_ ) {
+			is_resolved_ = true;
+			_Resolver ( init_args_ );
+		}
+		
 		_Updater ( deltaTime );
-	}
-	
-	virtual protected void _Initer ( Hashtable args ) {
 	}
 	
 	virtual protected void _Updater ( float deltaTime = 0 ) {
