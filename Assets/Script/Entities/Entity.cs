@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour {
 	}
 	
 	public void Init ( params object[] args ) {
-		if ( args[0] == null ) {
+		if ( args == null || args.Length <= 0 || args[0] == null ) {
 			init_args_ = null;
 		} else {
 			init_args_ =  Hash ( args );

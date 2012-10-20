@@ -11,6 +11,7 @@ public class GameSettings : MonoBehaviour {
 	public int MAP_TILE_COLUMN_COUNT = 6;
 	public int HUMAN_ACTION_POINT = 1;
 	public int MONSTER_ACTION_POINT = 2;
+	public int HUMAN_AVOID_DISTANCE = 4;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

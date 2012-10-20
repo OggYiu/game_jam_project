@@ -100,6 +100,11 @@ public class NavigationMap : Entity
 	}
 	
 	public bool GetNearestMonster ( GameActor actor, out int row, out int column ) {
+		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
+			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
+				Debug.Log ( "actor_map_ i: " + i + ", j: " + j + ": " + actor_map_[i,j] );
+			}
+		}
 		int closest_distance = int.MaxValue;
 		int temp_distance = int.MaxValue;
 		row = -1;

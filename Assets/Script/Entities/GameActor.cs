@@ -78,6 +78,7 @@ public class GameActor : Entity
 		if ( target_actor == null ) {
 			Debug.LogError ( "<GameActor::Create>, game actor object not found" );
 		}
+		target_actor.Init();
 		target_actor.transform.parent = SceneManager.GetInstance().entities_parent.transform;
 		target_actor.transform.localPosition = new Vector3 ( 0, 0, 0 );
 		return target_actor;

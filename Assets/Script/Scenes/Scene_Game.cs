@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Scene_Game : Scene {
-	GameActor human_ = null;
+//	GameActor human_ = null;
+//	GameActor human_ = null;
 	float wait_time_ = 0;
 //	GameActor monster_ = null;
 	int age_ = 0;
@@ -19,9 +20,14 @@ public class Scene_Game : Scene {
 		
 //		Entity target_entity = null;
 		
-		human_ = GameActor.Create ( "BaseEntity" );
-		AddEntity ( human_ );
-//		human_.transform.localPosition = NavigationMap.GetInstance().GetRandomPos ();
+		GameActor human = GameActor.Create ( "Entity_Human" );
+		AddEntity ( human );
+		NavigationMap.GetInstance().RegisterActor ( human );
+		
+		GameActor monster = GameActor.Create ( "Entity_Monster" );
+		AddEntity ( monster );
+		monster.transform.localPosition = new Vector3 ( 64 * 3, 64 * 2 );
+		NavigationMap.GetInstance().RegisterActor ( monster );
 		
 //		monster_ = GameActor.Create ( "BaseEntity" );
 //		AddEntity ( monster_ );

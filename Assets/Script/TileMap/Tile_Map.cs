@@ -9,6 +9,8 @@ public class Tile_Map : MonoBehaviour {
 	[SerializeField] int tile_col;
 	[SerializeField] int tile_row;
 	
+	[SerializeField] GameObject tileMapContainer = null;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -43,7 +45,8 @@ public class Tile_Map : MonoBehaviour {
 				GameObject prefab = Resources.Load("Prefabs/BaseTile", typeof(GameObject)) as GameObject;
 				Base_Tile basetile = ((GameObject)GameObject.Instantiate(prefab)).gameObject.GetComponent<Base_Tile>();
 				basetile.init(texture_path);
-				basetile.transform.position = new Vector3(j * tile_height, i * tile_width, 0);
+				basetile.transform.parent = tileMapContainer.transform;
+				basetile.transform.localPosition = new Vector3(j * tile_height, i * tile_width, 0);
 			}
 		}
 	}

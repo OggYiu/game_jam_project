@@ -3,9 +3,14 @@ using System.Collections;
 
 public class Monster : GameActor
 {
+	protected override void _Initer (Hashtable args)
+	{
+		base._Initer (args);
+		type_ = ActorType.monster;
+	}
+	
 	protected override void _Resolver (Hashtable args)
 	{
-		type_ = ActorType.monster;
 		base._Resolver (args);
 	}
 	
