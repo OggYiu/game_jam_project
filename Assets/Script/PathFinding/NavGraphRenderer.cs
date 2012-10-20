@@ -9,7 +9,7 @@ public class NavGraphRenderer
 	
 	public void Render(NavGraph navGraph) {
 		navGraph_ = navGraph;
-		Camera gameCamera = GameApp.GetInstance().main_camera;
+//		Camera gameCamera = GameApp.GetInstance().main_camera;
 //		tk2dCamera gameCamera = GameDirector.GetInstance().ma
 		
 		// display occupied bot
@@ -24,8 +24,8 @@ public class NavGraphRenderer
 //				
 //				if ( occupiedBot ) {
 //					nodeRealPos = GameUtils.Map2RealPos( targetNode.Position() );
-//					GUI.Label( new Rect(nodeRealPos.x - gameCamera.transform.position.x - GameSettings.GetInstance().TILE_WIDTH / 2,
-//										GameSettings.GetInstance().MAP_HEIGHT - nodeRealPos.y + gameCamera.transform.position.y - GameSettings.GetInstance().TILE_HEIGHT / 2,
+//					GUI.Label( new Rect(nodeRealPos.x - gameCamera.transform.position.x - GameSettings.GetInstance().TILE_SIZE / 2,
+//										GameSettings.GetInstance().MAP_HEIGHT - nodeRealPos.y + gameCamera.transform.position.y - GameSettings.GetInstance().TILE_SIZE / 2,
 //										300, 300), occupiedBot.gameObject.name );
 //				}
 //			}
@@ -44,17 +44,17 @@ public class NavGraphRenderer
 				targetNode = nodes[i];
 				nodePos = targetNode.Position();
 				
-				Vector3[] targetPositions = {	new Vector3(nodePos.x * GameSettings.GetInstance().TILE_WIDTH + GameSettings.GetInstance().TILE_WIDTH / 2,
-															nodePos.y * GameSettings.GetInstance().TILE_HEIGHT + GameSettings.GetInstance().TILE_HEIGHT / 2,
+				Vector3[] targetPositions = {	new Vector3(nodePos.x * GameSettings.GetInstance().TILE_SIZE + GameSettings.GetInstance().TILE_SIZE / 2,
+															nodePos.y * GameSettings.GetInstance().TILE_SIZE + GameSettings.GetInstance().TILE_SIZE / 2,
 															0.0f ),
-												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_WIDTH - GameSettings.GetInstance().TILE_WIDTH / 2,
-															nodePos.y * GameSettings.GetInstance().TILE_HEIGHT + GameSettings.GetInstance().TILE_HEIGHT / 2,
+												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE / 2,
+															nodePos.y * GameSettings.GetInstance().TILE_SIZE + GameSettings.GetInstance().TILE_SIZE / 2,
 															0.0f ),
-												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_WIDTH - GameSettings.GetInstance().TILE_WIDTH / 2,
-															nodePos.y * GameSettings.GetInstance().TILE_HEIGHT - GameSettings.GetInstance().TILE_HEIGHT / 2,
+												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE / 2,
+															nodePos.y * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE / 2,
 															0.0f ),
-												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_WIDTH + GameSettings.GetInstance().TILE_WIDTH / 2,
-															nodePos.y * GameSettings.GetInstance().TILE_HEIGHT - GameSettings.GetInstance().TILE_HEIGHT / 2,
+												new Vector3(nodePos.x * GameSettings.GetInstance().TILE_SIZE + GameSettings.GetInstance().TILE_SIZE / 2,
+															nodePos.y * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE / 2,
 															0.0f ) };
 				GameGLQuads quads = GameGLRenderer.GetInstance().AddQuads(targetPositions);
 				quads.SetColor( new Color(1.0f, 0.0f, 0.0f, 0.5f) );
@@ -75,10 +75,10 @@ public class NavGraphRenderer
 					NavGraphNode nodeTo = navGraph_.GetNode(targetEdge.To());
 					Vector2 nodeFromPos = nodeFrom.Position();
 					Vector2 nodeToPos = nodeTo.Position();
-					Vector3[] edgePositions = { new Vector3(nodeFromPos.x * GameSettings.GetInstance().TILE_WIDTH, nodeFromPos.y * GameSettings.GetInstance().TILE_HEIGHT, 0.0f),
-												new Vector3(nodeToPos.x * GameSettings.GetInstance().TILE_WIDTH, nodeToPos.y * GameSettings.GetInstance().TILE_HEIGHT, 0.0f) };
+					Vector3[] edgePositions = { new Vector3(nodeFromPos.x * GameSettings.GetInstance().TILE_SIZE, nodeFromPos.y * GameSettings.GetInstance().TILE_SIZE, 0.0f),
+												new Vector3(nodeToPos.x * GameSettings.GetInstance().TILE_SIZE, nodeToPos.y * GameSettings.GetInstance().TILE_SIZE, 0.0f) };
 					GameGLLines lines = GameGLRenderer.GetInstance().AddLines(edgePositions);
-					//lines.transform.position = new Vector3(nodeFromPos.x * GameSettings.GetInstance().TILE_WIDTH, nodeFromPos.y * GameSettings.GetInstance().TILE_HEIGHT, -3.0f);
+					//lines.transform.position = new Vector3(nodeFromPos.x * GameSettings.GetInstance().TILE_SIZE, nodeFromPos.y * GameSettings.GetInstance().TILE_SIZE, -3.0f);
 					lines.SetColor( new Color(0.0f, 1.0f, 0.0f, 0.5f) );
 				}
 			}

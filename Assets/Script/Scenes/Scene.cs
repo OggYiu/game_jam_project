@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Scene : Entity {
-	List<Entity> entities_ = new List<Entity>();
+	protected List<Entity> entities_ = new List<Entity>();
 	
 	public void AddEntity ( Entity entity )
 	{

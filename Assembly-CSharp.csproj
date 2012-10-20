@@ -48,6 +48,8 @@
      <Compile Include="Assets\Game Jam\Code\MySingletonController.cs" />
      <Compile Include="Assets\Script\Entities\Entity.cs" />
      <Compile Include="Assets\Script\Entities\GameActor.cs" />
+     <Compile Include="Assets\Script\Entities\Human.cs" />
+     <Compile Include="Assets\Script\Entities\Monster.cs" />
      <Compile Include="Assets\Script\Factory.cs" />
      <Compile Include="Assets\Script\GLRenderer\GameGLLines.cs" />
      <Compile Include="Assets\Script\GLRenderer\GameGLMap.cs" />

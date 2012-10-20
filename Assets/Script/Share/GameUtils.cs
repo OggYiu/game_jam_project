@@ -131,13 +131,13 @@ public class GameUtils {
 	}
 	
 	static public Vector2 Real2MapPos( Vector3 position ) {
-		return new Vector2( (int) ( Mathf.Round(position.x / GameSettings.GetInstance().TILE_WIDTH) ),
-							(int) ( Mathf.Round(position.y / GameSettings.GetInstance().TILE_HEIGHT) ) );
+		return new Vector2( (int) ( Mathf.Round(position.x / GameSettings.GetInstance().TILE_SIZE) ),
+							(int) ( Mathf.Round(position.y / GameSettings.GetInstance().TILE_SIZE) ) );
 	}
 	
 	static public Vector3 Map2RealPos( Vector2 position ) {
-		return new Vector3( position.x * GameSettings.GetInstance().TILE_WIDTH,
-							position.y * GameSettings.GetInstance().TILE_HEIGHT,
+		return new Vector3( position.x * GameSettings.GetInstance().TILE_SIZE,
+							position.y * GameSettings.GetInstance().TILE_SIZE,
 							0f );
 	}
 	
