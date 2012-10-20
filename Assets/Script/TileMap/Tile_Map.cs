@@ -24,22 +24,27 @@ public class Tile_Map : MonoBehaviour {
 				if (result <= 20)
 				{
 					texture_path = "Texture/water";
+					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.blocked);
 				}
 				else if (result <= 40)
 				{
 					texture_path = "Texture/tree_a";
+					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.food);
 				}
 				else if (result <= 60)
 				{
 					texture_path = "Texture/grass";
+					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.grass);
 				}
 				else if (result <= 80)
 				{
 					texture_path = "Texture/sand";
+					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.normal);
 				}
 				else
 				{
 					texture_path = "Texture/hills_a";
+					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.mountain);
 				}
 				
 				GameObject prefab = Resources.Load("Prefabs/BaseTile", typeof(GameObject)) as GameObject;
