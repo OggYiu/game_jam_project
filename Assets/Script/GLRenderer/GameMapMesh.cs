@@ -4,7 +4,7 @@ using System.Collections;
 public class GameMapMesh : MonoBehaviour
 {
 	private Mesh mesh_ = null;
-	[SerializeField] private MeshRenderer meshRenderer_ = null;
+//	[SerializeField] private MeshRenderer meshRenderer_ = null;
 	[SerializeField] private MeshFilter meshFilter_ = null;
 	
 	// Use this for initialization
@@ -38,7 +38,7 @@ public class GameMapMesh : MonoBehaviour
 		
         mesh_ = new Mesh();
 		
-		float meshSize = GameSettings.GetInstance().TILE_WIDTH;
+		float meshSize = GameSettings.GetInstance().TILE_SIZE;
         Vector3[] vertices = new Vector3[]
         {
             new Vector3( meshSize, meshSize, 0 ),

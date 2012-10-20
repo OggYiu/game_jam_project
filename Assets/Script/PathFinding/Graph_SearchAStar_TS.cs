@@ -191,10 +191,10 @@ public class Graph_SearchAStar_TS : Graph_SearchTimeSliced {
 			destination = graph_.GetNode(shortestPathTree_[nd].To()).Position();
 			
 			// change map position to real position
-			source.x *= GameSettings.GetInstance().TILE_WIDTH;
-			source.y *= GameSettings.GetInstance().TILE_HEIGHT;
-			destination.x *= GameSettings.GetInstance().TILE_WIDTH;
-			destination.y *= GameSettings.GetInstance().TILE_HEIGHT;
+			source.x *= GameSettings.GetInstance().TILE_SIZE;
+			source.y *= GameSettings.GetInstance().TILE_SIZE;
+			destination.x *= GameSettings.GetInstance().TILE_SIZE;
+			destination.y *= GameSettings.GetInstance().TILE_SIZE;
 			
 			newPathEdge = new PathEdge ( source, destination );
     		path.Insert(0, newPathEdge);

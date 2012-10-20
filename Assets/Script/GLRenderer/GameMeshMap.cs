@@ -19,8 +19,8 @@ public class GameMeshMap : MonoBehaviour
 		GameMapMesh newMesh = null;
 		for ( int i=0; i<GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j=0 ; j<GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
-				targetPosition = new Vector3(	j * GameSettings.GetInstance().TILE_WIDTH - GameSettings.GetInstance().TILE_WIDTH/2,
-												i * GameSettings.GetInstance().TILE_HEIGHT - GameSettings.GetInstance().TILE_HEIGHT/2, 0 );
+				targetPosition = new Vector3(	j * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE/2,
+												i * GameSettings.GetInstance().TILE_SIZE - GameSettings.GetInstance().TILE_SIZE/2, 0 );
 				newMesh = (GameMapMesh)Instantiate(gameMapMeshPrefab);
 				newMesh.Init(targetPosition);
 				newMesh.transform.parent = meshRoot.transform;

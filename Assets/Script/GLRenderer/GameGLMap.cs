@@ -28,11 +28,11 @@ public class GameGLMap : MonoBehaviour
 		
 		for ( int i=0 ; i<GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j=0 ; j<GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
-				targetPosition = new Vector3( j*GameSettings.GetInstance().TILE_WIDTH, i*GameSettings.GetInstance().TILE_HEIGHT, QUAD_Z );
-				Vector3[] quadPositions = {	new Vector3(targetPosition.x - GameSettings.GetInstance().TILE_WIDTH / 2, targetPosition.y - GameSettings.GetInstance().TILE_HEIGHT / 2, targetPosition.z),
-											new Vector3(targetPosition.x + GameSettings.GetInstance().TILE_WIDTH / 2, targetPosition.y - GameSettings.GetInstance().TILE_HEIGHT / 2, targetPosition.z),
-											new Vector3(targetPosition.x + GameSettings.GetInstance().TILE_WIDTH / 2, targetPosition.y + GameSettings.GetInstance().TILE_HEIGHT / 2, targetPosition.z),
-											new Vector3(targetPosition.x - GameSettings.GetInstance().TILE_WIDTH / 2, targetPosition.y + GameSettings.GetInstance().TILE_HEIGHT / 2, targetPosition.z) };
+				targetPosition = new Vector3( j*GameSettings.GetInstance().TILE_SIZE, i*GameSettings.GetInstance().TILE_SIZE, QUAD_Z );
+				Vector3[] quadPositions = {	new Vector3(targetPosition.x - GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.y - GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.z),
+											new Vector3(targetPosition.x + GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.y - GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.z),
+											new Vector3(targetPosition.x + GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.y + GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.z),
+											new Vector3(targetPosition.x - GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.y + GameSettings.GetInstance().TILE_SIZE / 2, targetPosition.z) };
 				glRenderer_.AddQuads(quadPositions);
 			}
 		}
