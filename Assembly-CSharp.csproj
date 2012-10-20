@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_3;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -44,128 +44,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\NGUI\Scripts\Interaction\LanguageSelection.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonColor.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonMessage.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonOffset.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonPlayAnimation.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonRotation.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonScale.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonSound.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIButtonTween.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UICheckbox.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UICheckboxControlledComponent.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UICheckboxControlledObject.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIDragCamera.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIDragObject.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIForwardEvents.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIGrid.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIImageButton.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UIPopupList.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UISlider.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UISliderColors.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Interaction\UITable.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Internal\Localization.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\TweenColor.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\TweenPosition.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\TweenRotation.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\TweenScale.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\TweenTransform.cs" />
-     <Compile Include="Assets\NGUI\Scripts\Tweening\UITweener.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIAnchor.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIAtlas.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UICamera.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIFilledSprite.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIFont.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIInput.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIInputSaved.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UILabel.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UILocalize.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIOrthoCamera.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIPanel.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIRoot.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UISlicedSprite.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UISprite.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UISpriteAnimation.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UITextList.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
-     <Compile Include="Assets\Script\entity\CharacterEntity.cs" />
-     <Compile Include="Assets\Script\entity\Entity.cs" />
-     <Compile Include="Assets\Script\entity\Process.cs" />
-     <Compile Include="Assets\Script\game\GameApp.cs" />
-     <Compile Include="Assets\Script\game\Scene_Game.cs" />
-     <Compile Include="Assets\Script\game\Scene_Intro.cs" />
-     <Compile Include="Assets\Script\interfaces\EAudioChannel.cs" />
-     <Compile Include="Assets\Script\interfaces\EMouseButton.cs" />
-     <Compile Include="Assets\Script\interfaces\EMouseCursor.cs" />
-     <Compile Include="Assets\Script\interfaces\IAudioManager.cs" />
-     <Compile Include="Assets\Script\interfaces\IDisposable.cs" />
-     <Compile Include="Assets\Script\interfaces\IEntity.cs" />
-     <Compile Include="Assets\Script\interfaces\IEntityCollection.cs" />
-     <Compile Include="Assets\Script\interfaces\IInputKeyboard.cs" />
-     <Compile Include="Assets\Script\interfaces\IInputManager.cs" />
-     <Compile Include="Assets\Script\interfaces\IInputMouse.cs" />
-     <Compile Include="Assets\Script\interfaces\IPauseable.cs" />
-     <Compile Include="Assets\Script\interfaces\IProcess.cs" />
-     <Compile Include="Assets\Script\interfaces\IResettable.cs" />
-     <Compile Include="Assets\Script\interfaces\IUpdateable.cs" />
-     <Compile Include="Assets\Script\scene\Scene.cs" />
-     <Compile Include="Assets\Script\scene\SceneManager.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCameraAnchor.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Fonts\tk2dFont.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Fonts\tk2dFontData.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Fonts\tk2dTextMesh.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Gui\tk2dButton.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dAnimatedSprite.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dBaseSprite.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dPixelPerfectHelper.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSlicedSprite.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSprite.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSpriteAnimation.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSpriteCollection.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSpriteCollectionData.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dSpriteCollectionInterfaces.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\Sprites\tk2dStaticSpriteBatcher.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMap.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMapBuilderUtil.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMapChunks.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMapColliderBuilder.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMapData.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d\Code\TileMap\tk2dTileMapMeshBuilder.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d_demo\tk2dDemoAnimController.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d_demo\tk2dDemoButtonController.cs" />
-     <Compile Include="Assets\TK2DROOT\tk2d_demo\tk2dDemoReloadController.cs" />
+     <Compile Include="Assets\Game Jam\Code\MyPoolController.cs" />
+     <Compile Include="Assets\Game Jam\Code\MySingletonController.cs" />
+     <Compile Include="Assets\Script\Entity.cs" />
+     <Compile Include="Assets\Script\Factory.cs" />
+     <Compile Include="Assets\Script\GameApp.cs" />
+     <Compile Include="Assets\Script\Scene.cs" />
+     <Compile Include="Assets\Script\SceneManager.cs" />
+     <Compile Include="Assets\Script\Scene_Game.cs" />
+     <Compile Include="Assets\Script\Scene_Intro.cs" />
      <Compile Include="Assets\iTween\Plugins\iTween.cs" />
      <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\iTween\Sample\RotateSample.cs" />
      <Compile Include="Assets\iTween\Sample\SampleInfo.cs" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\LitSolidVertexColor.shader" />
-     <None Include="Assets\Resources\Font\m01cps_font.txt" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\SolidVertexColor.shader" />
      <None Include="Assets\iTween\ReadMe!\ReadMe!.txt" />
-     <None Include="Assets\NGUI\Resources\Shaders\Depth.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\LitPremulVertexColor.shader" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\PremulVertexColor.shader" />
-     <None Include="Assets\TK2DROOT\tk2d_demo\Credits.txt" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\Blend2TexVertexColor.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\BlendVertexColor.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\LitCutoutVertexColor.shader" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (HardClip).shader" />
-     <None Include="Assets\NGUI\ReadMe.txt" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored Overlay.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\CutoutVertexColor.shader" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
-     <None Include="Assets\TK2DROOT\tk2d\Shaders\LitBlendVertexColor.shader" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
-     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
- <Reference Include="Assets\NGUI\DLLs\NGUI">
- <HintPath>Assets\NGUI\DLLs\NGUI.dll</HintPath>
- </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
