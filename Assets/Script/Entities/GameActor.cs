@@ -8,6 +8,12 @@ public enum Directions {
 	north,
 }
 
+public enum ActorType {
+	none,
+	human,
+	monster,
+}
+
 public class GameActor : Entity
 {
 	[SerializeField] int action_point_gainer_ = 0;
@@ -15,6 +21,7 @@ public class GameActor : Entity
 	Vector2 map_position_ = Vector2.zero;
 	int action_point_ = 0;
 	int age_ = 0;
+	protected ActorType type_;
 	
 	// Use this for initialization
 	void Start ()
@@ -29,6 +36,10 @@ public class GameActor : Entity
 	void Update ()
 	{
 	
+	}
+	
+	public ActorType Type () {
+		return type_;
 	}
 	
 	public Vector2 MapPosition () {
@@ -88,9 +99,21 @@ public class GameActor : Entity
 		}
 		
 		--action_point_;
+		_DoAction ();
 	}
 	
 	virtual protected void _DoAction () {
+		Think ();
+	}
+	
+	public Vector3 map_pos {
+		set { }
+		get { return GameUtils.Real2MapPos ( this.transform.localPosition ); }
+	}
+	
+	public Vector3 pos {
+		set { this.transform.localPosition= value; } 
+		get { return this.transform.localPosition; }
 	}
 }
 

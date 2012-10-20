@@ -2,10 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Scene_Game : Scene {
-	bool next_turn_ = false;
-	bool next_action_ = false;
-	bool turn_ended_ = false;
 	GameActor human_ = null;
+	float wait_time_ = 0;
 //	GameActor monster_ = null;
 	int age_ = 0;
 	
@@ -13,11 +11,17 @@ public class Scene_Game : Scene {
 	{
 		base._Resolver (args);
 		
+//		if (args.Contains("Scene_Game")) {
+//			scene_game_ =(Scene_Game)args["Scene_Game"];
+//		}
+		
+		NavigationMap.GetInstance().Init ( "Scene_Game", this );
+		
 //		Entity target_entity = null;
 		
 		human_ = GameActor.Create ( "BaseEntity" );
 		AddEntity ( human_ );
-		human_.transform.localPosition = NavigationMap.GetInstance().GetRandomPos ();
+//		human_.transform.localPosition = NavigationMap.GetInstance().GetRandomPos ();
 		
 //		monster_ = GameActor.Create ( "BaseEntity" );
 //		AddEntity ( monster_ );
@@ -30,42 +34,49 @@ public class Scene_Game : Scene {
 	
 	protected override void _Updater (float deltaTime)
 	{
-		if ( next_turn_ ) {
-			next_turn_ = false;
-			++age_;
+		NavigationMap.GetInstance().OnUpdate();
+		base._Updater (deltaTime);
 		
-			for ( int i = 0; i < entities_.Count; ++i ) {
-				((GameActor)entities_[i]).TurnBeginHandler ();
-			}
-			
-			turn_ended_ = false;
+		if ( IsAllActionDone() ) {
+			wait_time_ = 1;
+			NextTurn ();
 		}
 		
-		if ( next_action_ && !turn_ended_ ) {
+		if ( wait_time_ > 0 ) {
+			wait_time_ -= Time.deltaTime;
+		} else {
 			// human first
 			HumanDoAction ();
 			MonsterDoAction ();
-			
-			turn_ended_ = true;
-			for ( int i = 0; i < entities_.Count; ++i ) {
-				if ( ((GameActor)entities_[i]).IsActionEnded () ) {
-					turn_ended_ = false;
-					break;
-				}
-			}
 		}
-		
-		base._Updater (deltaTime);
-		
-		NavigationMap.GetInstance().OnUpdate();
 	}
 	
 	override public void MouseButtonDownHandler ( int button_index ) {
-		if ( button_index == 0 ) {
-			next_action_ = true;
-		} else {
-			next_turn_ = true;
-			next_action_ = true;
+//		if ( button_index == 0 ) {
+//			next_action_ = true;
+//		} else {
+//			next_turn_ = true;
+//			next_action_ = true;
+//		}
+//		turn_ended_ = false;
+		
+		NextTurn ();
+	}
+	
+	bool IsAllActionDone () {
+		for ( int i = 0; i < entities_.Count; ++i ) {
+			if ( !((GameActor)entities_[i]).IsActionEnded () ) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	void NextTurn () {
+		++age_;
+		
+		for ( int i = 0; i < entities_.Count; ++i ) {
+			((GameActor)entities_[i]).TurnBeginHandler ();
 		}
 	}
 	
@@ -73,9 +84,10 @@ public class Scene_Game : Scene {
 		GameActor target_game_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_game_actor = ((GameActor)entities_[i]);
-			if ( target_game_actor.GetType() != typeof(Human) ) {
+			if ( target_game_actor.Type() != ActorType.human ) {
 				continue;
 			}
+			target_game_actor.DoAction ();
 		}
 	}
 	
@@ -83,9 +95,10 @@ public class Scene_Game : Scene {
 		GameActor target_game_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_game_actor = ((GameActor)entities_[i]);
-			if ( target_game_actor.GetType() != typeof(Monster) ) {
+			if ( target_game_actor.Type() != ActorType.monster ) {
 				continue;
 			}
+			target_game_actor.DoAction ();
 		}
 	}
 }
