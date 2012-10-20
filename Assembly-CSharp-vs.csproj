@@ -58,6 +58,7 @@
      <Compile Include="Assets\Script\GLRenderer\GameMapMesh.cs" />
      <Compile Include="Assets\Script\GLRenderer\GameMeshMap.cs" />
      <Compile Include="Assets\Script\GameApp.cs" />
+     <Compile Include="Assets\Script\Navigation\GameMap.cs" />
      <Compile Include="Assets\Script\PathFinding\CellSpacePartition.cs" />
      <Compile Include="Assets\Script\PathFinding\Graph_SearchAStar_TS.cs" />
      <Compile Include="Assets\Script\PathFinding\Graph_SearchDijkstra.cs" />

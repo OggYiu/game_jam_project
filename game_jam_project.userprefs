@@ -11,10 +11,8 @@
             <Node name="Assets" expanded="True">
               <Node name="Script" expanded="True">
                 <Node name="Entities" expanded="True" />
-                <Node name="GLRenderer" expanded="True" />
+                <Node name="Navigation" selected="True" />
                 <Node name="PathFinding" expanded="True" />
-                <Node name="Share" expanded="True" />
-                <Node name="GameApp.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -31,7 +29,10 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tse/Documents/ppp/game_jam_project/Assets/Script/GameApp.cs" line="33" />
+      <Breakpoint file="/Users/tse/Documents/ppp/game_jam_project/Assets/Script/GameApp.cs" line="71" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

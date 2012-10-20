@@ -10,6 +10,8 @@ public enum Directions {
 
 public class GameActor : Entity
 {
+	Vector2 map_position_ = Vector2.zero;
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -22,7 +24,12 @@ public class GameActor : Entity
 	
 	}
 	
-	public void MoveLeft () {
+	public Vector2 MapPosition () {
+		return map_position_;
+	}
+	
+	public void MoveTo ( Directions direction ) {
+		if ( 
 	}
 	
 	override protected void _Updater ( float deltaTime = 0 ) {
