@@ -18,6 +18,15 @@ public class Monster : GameActor
 	{
 		base._Thinker ();
 		
-		// check if he see 
+		bool processed = false;
+		// see if you can move
+		if ( false ) {
+			processed = true;
+		}
+		
+		int row = -1;
+		int column = -1;
+//		if ( !processed && NavigationMap.GetInstance().GetNearestHumanForMonster ( this ) ) {
+//		}
 	}
 }

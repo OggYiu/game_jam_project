@@ -5,6 +5,8 @@ public enum NodeType {
 	normal,
 	food,
 	blocked,
+	mountain,
+	grass,
 }
 
 public class NavigationMap : Entity
