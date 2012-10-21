@@ -119,20 +119,18 @@ public class Scene_Game : Scene {
 				case GameEndReason.human_rulz:
 					
 					result_human_win.active = true;
-					//game_end_text_.text = "HUMAN RULZ!";
 					
 					break;
 				case GameEndReason.monster_rulz:
 					
 					result_monster_win.active = true;
-					//game_end_text_.text = "MONSTER RULZ!";
 					
 					break;
 				case GameEndReason.time_out:
-					game_end_text_.text = "TIMES UP!";
 					break;
 				}
 				audio_win_.Play ();
+				game_end_text_.text = "Score : " + CalculateScore ();
 				return ;
 			}
 		} else {
@@ -183,6 +181,9 @@ public class Scene_Game : Scene {
 	}
 	
 	override public void MouseButtonDownHandler ( int button_index ) {
+		if ( is_game_ended_ ) {
+			Application.LoadLevel ( "Jason" );
+		}
 //		NextTurn ();
 	}
 	
@@ -223,6 +224,10 @@ public class Scene_Game : Scene {
 		
 //		oldest_human
 //			oldest_monster = 0;
+	}
+	
+	int CalculateScore() {
+		return ( GameStatics.human_spawned + GameStatics.monster_spawned + GameStatics.human_died + GameStatics.monster_died + GameStatics.game_turn + GameStatics.oldest_human + GameStatics.oldest_monster ) * 1000;
 	}
 	
 	void CheckIfGameEnd () {

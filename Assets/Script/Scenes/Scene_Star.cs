@@ -15,8 +15,8 @@ public class Scene_Star : Scene {
 	float lower_part_sum = 0;
 	float total_sum = 0;
 	
-	float acceleration = 1.008f;
-	float speed = 1.0f;
+	float acceleration = 1.012f;
+	float speed = 1.4f;
 	
 	float end_position = 3000;
 	
@@ -77,13 +77,15 @@ public class Scene_Star : Scene {
 	
 	override public void MousePositionUpdateHandler ( Vector3 mousepos ) 
 	{	
+		mousepos = game_camera.camera.ScreenToWorldPoint ( mousepos );
 		if (mouse_last_position != Vector3.zero)
 		{
 			float y_diff = acceleration * (mouse_last_position.y - mousepos.y) / 1.3f * -1;
 			
 			if (star != null && star.transform.position.x < end_position)
 			{
-				star.transform.position = new Vector3(star.transform.position.x, star.transform.position.y + y_diff, star.transform.position.z);
+//				star.transform.position = new Vector3(star.transform.position.x, star.transform.position.y + y_diff, star.transform.position.z);
+				star.transform.position = new Vector3(star.transform.position.x, mousepos.y, star.transform.position.z);
 			}
 			else
 			{
