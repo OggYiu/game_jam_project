@@ -49,7 +49,8 @@ public class Scene_Star : Scene {
 			GameObject prefab = Resources.Load("Prefabs/StarTail", typeof(GameObject)) as GameObject;
 			GameObject startail = ((GameObject)GameObject.Instantiate(prefab));
 			startail.transform.position = star.transform.position;
-			int rand = Random.Range(1, 2);
+			
+			int rand = Random.Range(1, 3);
 			Texture2D p = new Texture2D(0, 0);
 			p = Resources.Load("Texture/star_back_0" + rand.ToString(), typeof(Texture2D)) as Texture2D;
 			startail.renderer.material.mainTexture = p;
