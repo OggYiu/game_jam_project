@@ -39,6 +39,29 @@ public class NavigationMap : Entity
 		}
 	}
 	
+	// get all map info to spawn monster and human
+	public void SpawnCreatures () {
+		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
+			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
+				if ( collision_map_[i,j] == NodeType.mountain ) {
+					if ( GameSettings.GetInstance().MONSTER_SPAWN_CHANCE >= Random.Range ( 0, 100 ) ) {
+						GameActor monster = GameActor.Create ( "Entity_Monster" );
+						scene_game_.AddEntity ( monster );
+						NavigationMap.GetInstance().RegisterActor ( monster );
+						monster.transform.localPosition = new Vector3 ( GameSettings.GetInstance().TILE_SIZE * j, GameSettings.GetInstance().TILE_SIZE * i );
+					}
+				} else if ( collision_map_[i,j] == NodeType.grass ) {
+					if ( GameSettings.GetInstance().HUMAN_SPAWN_CHANCE >= Random.Range ( 0, 100 ) ) {
+						GameActor human = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
+						scene_game_.AddEntity ( human );
+						NavigationMap.GetInstance().RegisterActor ( human );
+						human.transform.localPosition = new Vector3 ( GameSettings.GetInstance().TILE_SIZE * j, GameSettings.GetInstance().TILE_SIZE * i );
+					}
+				}
+			}
+		}
+	}
+	
 	public bool IsExistedIn ( GameActor actor, int row, int column ) {
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
@@ -102,7 +125,7 @@ public class NavigationMap : Entity
 				}
 			}
 			
-			GameActor target_actor;
+//			GameActor target_actor;
 			for ( int i = 0; i < scene_game_.entities.Count; ++i ) {
 				this.RegisterActor ( (GameActor)scene_game_.entities[i] );
 			}
@@ -127,14 +150,75 @@ public class NavigationMap : Entity
 		collision_map_[row,column] = type;
 	}
 	
-	public void GetRandomPos ( out int row, out int column ) {
-		while ( true ) {
-			row = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_ROW_COUNT - 1);
-			column = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT- 1);
-			if ( collision_map_ [row, column] != NodeType.blocked ) {
-				break;
+	public bool GetRandomNearBy ( GameActor actor, out int row, out int column ) {
+		row = -1;
+		column = -1;
+		
+		int cur_map_x = (int)actor.map_pos.x;
+		int cur_map_y = (int)actor.map_pos.y;
+		
+		int target_row = 0;
+		int target_column = 0;
+		
+		int random_seed = Random.Range ( 0, 3 );
+		switch ( random_seed ) {
+		case 0:
+		{
+			// east
+			target_row = cur_map_y;
+			target_column = cur_map_x + 1;
+			if ( IsPosValid ( target_row, target_column ) ) {
+				row = target_row;
+				column = target_column;
+				return true;
 			}
 		}
+			break;
+		case 1:
+		{
+			// sourth
+			target_row = cur_map_y - 1;
+			target_column = cur_map_x;
+			if ( IsPosValid ( target_row, target_column ) ) {
+				row = target_row;
+				column = target_column;
+				return true;
+			}
+		}
+			break;
+		case 2:
+		{
+			// west
+			target_row = cur_map_y;
+			target_column = cur_map_x - 1;
+			if ( IsPosValid ( target_row, target_column ) ) {
+				row = target_row;
+				column = target_column;
+				return true;
+			}
+		}
+			break;
+		default:
+		{
+			// north
+			target_row = cur_map_y + 1;
+			target_column = cur_map_x;
+			if ( IsPosValid ( target_row, target_column ) ) {
+				row = target_row;
+				column = target_column;
+				return true;
+			}
+		}
+			break;
+		}
+			
+		return false;
+	}
+	
+	public bool GetRandomPos ( out int row, out int column ) {
+		row = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_ROW_COUNT - 1);
+		column = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT- 1);
+		return IsPosValid( row, column );
 	}
 	
 	public bool GetNearestMonster ( GameActor actor, out int row, out int column ) {
@@ -262,7 +346,7 @@ public class NavigationMap : Entity
 	}
 	
 	public bool CanWalkTo ( GameActor actor, int row, int column ) {
-		return IsPosValid ( row, column );
+		return IsPosValid ( row, column ) && collision_map_[row,column] != NodeType.blocked;
 	}
 	
 	public bool CanSeeInDiagonal ( GameActor actor, int row, int column ) {
@@ -308,7 +392,8 @@ public class NavigationMap : Entity
 					--new_map_y;
 			}
 			
-			return IsPosValid ( new_map_y, new_map_x );
+//			return IsPosValid ( new_map_y, new_map_x );
+			return CanWalkTo ( actor, new_map_x, new_map_y );
 		}
 		
 		return false;

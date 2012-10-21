@@ -22,6 +22,8 @@ public class GameSettings : MonoBehaviour {
 	public string MONSTER_PREFAB_NAME = "Entity_Monster";
 	public bool FOOD_DISAPEAR_AFTER_EATING = true;
 	public int TURN_LIMIT = 0;
+	public int MONSTER_SPAWN_CHANCE = 10;
+	public int HUMAN_SPAWN_CHANCE = 10;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

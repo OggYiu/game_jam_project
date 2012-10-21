@@ -29,15 +29,17 @@ public class Scene_Game : Scene {
 	List<ActorSpawner> actor_spawners_ = new List<ActorSpawner>();
 	Tile_Map tile_map_;
 	GameEndReason game_end_reason_;
-	const float game_end_interval_ = 3;
+	const float game_end_interval_ = 1;
 	float game_end_count_down_ = -1;
 	bool is_game_ended_ = false;
 	GUIText game_end_text_ = null;
 	[SerializeField] AudioSource audio_dino_die_;
 	[SerializeField] AudioSource audio_human_die_;
 	[SerializeField] AudioSource audio_win_;
+	[SerializeField] AudioSource audio_background_;
 	bool is_dino_die_sound_play_ = false;
 	bool is_human_die_sound_play_ = false;
+	bool navigation_map_inited_ = false;
 	
 	protected override void _Resolver (Hashtable args)
 	{
@@ -53,22 +55,25 @@ public class Scene_Game : Scene {
 //			scene_game_ =(Scene_Game)args["Scene_Game"];
 //		}
 		
+		GameDataShare.forest_sand_percentage = 0.2f;
+		GameDataShare.mountain_percentage = 0.1f;
 		NavigationMap.GetInstance().Init ( "Scene_Game", this );
 		
 //		Entity target_entity = null;
 		
-		GameActor human = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
-		AddEntity ( human );
-		NavigationMap.GetInstance().RegisterActor ( human );
-		
-		GameActor monster = GameActor.Create ( "Entity_Monster" );
-		AddEntity ( monster );
-		monster.transform.localPosition = new Vector3 ( 64 * 5, 64 * 4 );
-		NavigationMap.GetInstance().RegisterActor ( monster );
+//		GameActor human = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
+//		AddEntity ( human );
+//		NavigationMap.GetInstance().RegisterActor ( human );
+//		
+//		GameActor monster = GameActor.Create ( "Entity_Monster" );
+//		AddEntity ( monster );
+//		monster.transform.localPosition = new Vector3 ( 64 * 5, 64 * 4 );
+//		NavigationMap.GetInstance().RegisterActor ( monster );
 		
 		tile_map_ = new Tile_Map ();
 		tile_map_.Init ();
 		
+		audio_background_.Play ();
 //		monster_ = GameActor.Create ( "BaseEntity" );
 //		AddEntity ( monster_ );
 //		monster_.transform.localPosition = new Vector3 ( GameSettings.GetInstance().TILE_SIZE, 0, 0 );
@@ -85,6 +90,13 @@ public class Scene_Game : Scene {
 		}
 		
 		NavigationMap.GetInstance().OnUpdate();
+		
+		if ( !navigation_map_inited_ ) {
+			// get all map info to spawn monster and human
+			NavigationMap.GetInstance().SpawnCreatures ();
+			navigation_map_inited_ = true;
+		}
+		
 		base._Updater (deltaTime);
 		
 		if ( IsAllActionDone() ) {
