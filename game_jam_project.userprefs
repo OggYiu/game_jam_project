@@ -2,21 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Scenes/Scene_Star.cs">
     <Files>
-      <File FileName="Assets/Script/Share/GameStatics.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Entities/Entity.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Entities/Human.cs" Line="1" Column="1" />
-      <File FileName="Assets/iTween/Plugins/iTween.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Entities/Monster.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Entities/GameActor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Scenes/SceneManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Star/Star.cs" Line="20" Column="4" />
+      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="90" Column="5" />
       <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/GameApp.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="59" Column="4" />
-      <File FileName="Assets/Script/GameDataShare.cs" Line="7" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -34,6 +22,7 @@
                   <Node name="Scene_Star.cs" selected="True" />
                 </Node>
                 <Node name="Share" expanded="True" />
+                <Node name="Star" expanded="True" />
                 <Node name="TileMap" expanded="True" />
               </Node>
             </Node>
