@@ -1,0 +1,73 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Scenes/Scene_Star.cs">
+    <Files>
+      <File FileName="Assets/Script/Star/Star.cs" Line="25" Column="5" />
+      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="30" Column="37" />
+      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GameApp.cs" Line="1" Column="1" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Entities/Monster.cs">
+    <Files>
+      <File FileName="Assets/Script/GameApp.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Share/GameStatics.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Entity.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Human.cs" Line="22" Column="1" />
+      <File FileName="Assets/iTween/Plugins/iTween.cs" Line="244" Column="44" />
+      <File FileName="Assets/Script/Entities/Monster.cs" Line="75" Column="4" />
+      <File FileName="Assets/Script/Entities/GameActor.cs" Line="56" Column="1" />
+      <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="39" Column="3" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="344" Column="16" />
+      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="84" Column="24" />
+>>>>>>> yiu
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="iTween" expanded="True">
+                <Node name="Plugins" expanded="True" />
+              </Node>
+              <Node name="Script" expanded="True">
+                <Node name="Entities" expanded="True">
+                  <Node name="Monster.cs" selected="True" />
+                </Node>
+                <Node name="GLRenderer" expanded="True" />
+                <Node name="Navigation" expanded="True" />
+<<<<<<< HEAD
+                <Node name="PathFinding" expanded="True" />
+                <Node name="Scenes" expanded="True">
+                  <Node name="Scene_Star.cs" selected="True" />
+                </Node>
+                <Node name="Share" expanded="True" />
+                <Node name="Star" expanded="True" />
+=======
+                <Node name="Scenes" expanded="True" />
+                <Node name="Share" expanded="True" />
+>>>>>>> yiu
+                <Node name="TileMap" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>map</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/nightboyx/Desktop/GameJam/game_jam_project/Assets/Script/Scenes/Scene_Star.cs" line="75" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
