@@ -81,6 +81,7 @@
      <Compile Include="Assets\Script\Share\GameSettings.cs" />
      <Compile Include="Assets\Script\Share\GameStatics.cs" />
      <Compile Include="Assets\Script\Share\GameUtils.cs" />
+     <Compile Include="Assets\Script\Star\Boom.cs" />
      <Compile Include="Assets\Script\Star\Star.cs" />
      <Compile Include="Assets\Script\TileMap\Base_Tile.cs" />
      <Compile Include="Assets\Script\TileMap\Tile_Map.cs" />

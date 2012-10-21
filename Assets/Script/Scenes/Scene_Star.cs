@@ -6,6 +6,7 @@ public class Scene_Star : Scene {
 	public GameObject star;
 	public GameObject star_background;
 	public GameObject game_camera;
+	public Boom boom;
 	
 	public GUIText mountain_percentage_text;
 	public GUIText forest_sand_percentage_text;
@@ -14,10 +15,10 @@ public class Scene_Star : Scene {
 	float lower_part_sum = 0;
 	float total_sum = 0;
 	
-	float acceleration = 1.01f;
+	float acceleration = 1.008f;
 	float speed = 1.0f;
 	
-	float end_position = 1800;
+	float end_position = 3000;
 	
 	private Vector3 mouse_last_position = Vector3.zero;
 	
@@ -57,9 +58,9 @@ public class Scene_Star : Scene {
 			//-----------------------------------------------
 			
 			
-			if (game_camera != null && game_camera.transform.position.x < end_position - 450)
+			if (game_camera != null && game_camera.transform.position.x < end_position - 350)
 			{
-				game_camera.transform.position = new Vector3(game_camera.transform.position.x + (speed * 0.65f), game_camera.transform.position.y, game_camera.transform.position.z);
+				game_camera.transform.position = new Vector3(game_camera.transform.position.x + (speed * 0.85f), game_camera.transform.position.y, game_camera.transform.position.z);
 			}
 		}
 		
@@ -78,7 +79,7 @@ public class Scene_Star : Scene {
 	{	
 		if (mouse_last_position != Vector3.zero)
 		{
-			float y_diff = acceleration * (mouse_last_position.y - mousepos.y) / 1.5f * -1;
+			float y_diff = acceleration * (mouse_last_position.y - mousepos.y) / 1.3f * -1;
 			
 			if (star != null && star.transform.position.x < end_position)
 			{
@@ -88,7 +89,11 @@ public class Scene_Star : Scene {
 			{
 				GameDataShare.mountain_percentage = upper_part_sum / total_sum;
 				GameDataShare.forest_sand_percentage = lower_part_sum / total_sum;
-				Application.LoadLevel("Yiu");
+				
+				if (boom != null)
+				{
+					boom.StartAnimation();
+				}
 			}
 		}
 		
