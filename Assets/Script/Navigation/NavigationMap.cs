@@ -477,10 +477,12 @@ public class NavigationMap : Entity
 					if ( !target_actor.isAlive() ) {
 						++kill_counter;
 						is_human_died = true;
+						++GameStatics.human_died;
 					}
 					
 					if ( !actor.isAlive() ) {
 						is_dino_died = true;
+						++GameStatics.monster_died;
 					}
 				}
 			}

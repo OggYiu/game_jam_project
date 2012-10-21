@@ -55,8 +55,8 @@ public class Scene_Game : Scene {
 //			scene_game_ =(Scene_Game)args["Scene_Game"];
 //		}
 		
-		GameDataShare.forest_sand_percentage = 0.2f;
-		GameDataShare.mountain_percentage = 0.1f;
+//		GameDataShare.forest_sand_percentage = 0.2f;
+//		GameDataShare.mountain_percentage = 0.1f;
 		NavigationMap.GetInstance().Init ( "Scene_Game", this );
 		
 //		Entity target_entity = null;
