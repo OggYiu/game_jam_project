@@ -68,10 +68,11 @@ public class Monster : GameActor
 		}
 		
 		if ( !processed && !moving_to_target_ ) {
-			NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ );
-			moving_to_target_ = true;
-			Debug.Log ( "<Monster::_Thinker>, random walking, heading to " + target_column_ + ", " + target_row_ );
-			processed = true;
+			if ( NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ ) ) {
+				moving_to_target_ = true;
+				Debug.Log ( "<Monster::_Thinker>, random walking, heading to " + target_column_ + ", " + target_row_ );
+				processed = true;
+			}
 		}
 		
 		if ( moving_to_target_ ) {

@@ -1,23 +1,30 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 <<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Scenes/Scene_Star.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Star/Boom.cs">
     <Files>
-      <File FileName="Assets/Script/Star/Star.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="91" Column="34" />
-      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Scenes/Scene_Game.cs">
-    <Files>
-      <File FileName="Assets/iTween/Plugins/iTween.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="144" Column="2" />
-      <File FileName="Assets/Script/Entities/Human.cs" Line="32" Column="6" />
-      <File FileName="Assets/Script/Scenes/Scene.cs" Line="92" Column="22" />
-      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="82" Column="4" />
-      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="377" Column="29" />
-      <File FileName="Assets/Script/Entities/Monster.cs" Line="79" Column="40" />
-      <File FileName="Assets/Script/Entities/GameActor.cs" Line="136" Column="60" />
+      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Human.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Monster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/GameActor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Star/Star.cs" Line="32" Column="4" />
+      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="96" Column="6" />
+      <File FileName="Assets/Script/Star/Boom.cs" Line="28" Column="5" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/TileMap/Tile_Map.cs">
+    <Files>
+      <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/Human.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="49" Column="41" />
+      <File FileName="Assets/Script/Entities/Monster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Entities/GameActor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="26" Column="3" />
+      <File FileName="Assets/Script/TileMap/Base_Tile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="92" Column="35" />
 >>>>>>> yiu
     </Files>
     <Pads>
@@ -32,18 +39,18 @@
                 <Node name="Entities" expanded="True" />
                 <Node name="GLRenderer" expanded="True" />
                 <Node name="Navigation" expanded="True" />
-                <Node name="Scenes" expanded="True">
+                <Node name="Scenes" expanded="True" />
+                <Node name="Share" expanded="True" />
 <<<<<<< HEAD
-                  <Node name="Scene_Star.cs" selected="True" />
+                <Node name="Star" expanded="True">
+                  <Node name="Boom.cs" selected="True" />
                 </Node>
-                <Node name="Share" expanded="True" />
-                <Node name="Star" expanded="True" />
-=======
-                  <Node name="Scene_Game.cs" selected="True" />
-                </Node>
-                <Node name="Share" expanded="True" />
->>>>>>> yiu
                 <Node name="TileMap" expanded="True" />
+=======
+                <Node name="TileMap" expanded="True">
+                  <Node name="Tile_Map.cs" selected="True" />
+                </Node>
+>>>>>>> yiu
               </Node>
             </Node>
           </Node>

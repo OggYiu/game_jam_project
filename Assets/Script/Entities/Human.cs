@@ -96,6 +96,14 @@ public class Human : GameActor
 					is_spawner_ = true;
 					moving_to_target_ = false;
 				}
+			} else {
+				if ( NavigationMap.GetInstance().GetRandomNearBy ( this, out new_map_x, out new_map_y ) ) {
+					NavigationMap.GetInstance().UnRegisterActor ( this );
+					this.pos = new Vector3 (new_map_x * GameSettings.GetInstance().TILE_SIZE,
+											new_map_y * GameSettings.GetInstance().TILE_SIZE,
+											0.0f );
+					NavigationMap.GetInstance().RegisterActor ( this );
+				}
 			}
 			
 			processed = true;
@@ -107,10 +115,11 @@ public class Human : GameActor
 		}
 		
 		if ( !processed && !moving_to_target_ ) {
-			NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ );
-			moving_to_target_ = true;
-			Debug.Log ( "<Human::_Thinker>, walking to random pos, heading to " + target_column_ + ", " + target_row_ );
-			processed = true;
+			if ( NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ ) ) {
+				moving_to_target_ = true;
+				Debug.Log ( "<Human::_Thinker>, walking to random pos, heading to " + target_column_ + ", " + target_row_ );
+				processed = true;
+			}
 		}
 		
 		if ( moving_to_target_ ) {

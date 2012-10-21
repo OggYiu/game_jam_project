@@ -1,17 +1,16 @@
-﻿<Properties>
+<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Star/Boom.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/TileMap/Tile_Map.cs">
     <Files>
       <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Entities/Human.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="49" Column="41" />
       <File FileName="Assets/Script/Entities/Monster.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Entities/GameActor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Star/Star.cs" Line="32" Column="4" />
-      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="96" Column="6" />
-      <File FileName="Assets/Script/Star/Boom.cs" Line="28" Column="5" />
+      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="26" Column="3" />
+      <File FileName="Assets/Script/TileMap/Base_Tile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="92" Column="35" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,10 +26,9 @@
                 <Node name="Navigation" expanded="True" />
                 <Node name="Scenes" expanded="True" />
                 <Node name="Share" expanded="True" />
-                <Node name="Star" expanded="True">
-                  <Node name="Boom.cs" selected="True" />
+                <Node name="TileMap" expanded="True">
+                  <Node name="Tile_Map.cs" selected="True" />
                 </Node>
-                <Node name="TileMap" expanded="True" />
               </Node>
             </Node>
           </Node>

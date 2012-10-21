@@ -20,6 +20,7 @@ public class Tile_Map {
 			for (int j = 0; j < tile_row; ++j)
 			{
 				map[i,j] = NodeType.blocked;
+//				map[i,j] = NodeType.;
 			}
 		}
 		
