@@ -78,6 +78,11 @@ public class SceneManager : Entity {
 			cur_scene_.MouseButtonDownHandler ( button_index );
 		}
 	}
+	
+	public Scene cur_scene {
+		set {}
+		get { return cur_scene_; }
+	}
 //	public void RegisterPage_ ( string page_prefab_name ) {
 //		if ( page_registry_
 //		page_registry_.Add ( page_prefab_name, index );

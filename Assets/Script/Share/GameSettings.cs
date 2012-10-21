@@ -17,6 +17,10 @@ public class GameSettings : MonoBehaviour {
 	public int HUMAN_DAMAGE = 1;
 	public int MONSTER_DAMAGE = 1;
 	public float ACTION_INTERVAL = 1;
+	public int MONSTER_SIGHT = 3;
+	public string HUMAN_PREFAB_NAME = "Entity_Human";
+	public string MONSTER_PREFAB_NAME = "Entity_Monster";
+	public bool FOOD_DISAPEAR_AFTER_EATING = true;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

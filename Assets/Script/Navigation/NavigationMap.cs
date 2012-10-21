@@ -27,7 +27,7 @@ public class NavigationMap : Entity
 		}
 		
 		// testing
-		collision_map_[2, 3] = NodeType.food;
+		collision_map_[2, 2] = NodeType.food;
 		
 		actor_map_ = new List<GameActor> [GameSettings.GetInstance().MAP_TILE_ROW_COUNT,GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT];
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
@@ -40,8 +40,8 @@ public class NavigationMap : Entity
 	public bool IsExistedIn ( GameActor actor, int row, int column ) {
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
-				for ( int k = 0; k < actor_map_[row, column].Count; ++k ) {
-					if ( actor_map_[row, column][k] ) {
+				for ( int k = 0; k < actor_map_[i, j].Count; ++k ) {
+					if ( actor_map_[i, j][k] == actor ) {
 						return true;
 					}
 				}
@@ -52,12 +52,10 @@ public class NavigationMap : Entity
 	}
 	
 	public void RegisterActor ( GameActor actor ) {
-		int row = (int)actor.map_pos.x;
-		int column = (int)actor.map_pos.y;
+		int row = (int)actor.map_pos.y;
+		int column = (int)actor.map_pos.x;
 		
-		if ( ( 	row * GameSettings.GetInstance().MAP_TILE_ROW_COUNT + column ) >= ( GameSettings.GetInstance().MAP_TILE_ROW_COUNT * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT ) ||
-				row < 0 ||
-				column < 0 ) {
+		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::RegisterActor>, invalid index, row : " + row + ", column: " + column );
 			return ;
 		}
@@ -69,12 +67,10 @@ public class NavigationMap : Entity
 	}
 	
 	public void UnRegisterActor ( GameActor actor ) {
-		int row = (int)actor.map_pos.x;
-		int column = (int)actor.map_pos.y;
+		int row = (int)actor.map_pos.y;
+		int column = (int)actor.map_pos.x;
 		
-		if ( ( 	row * GameSettings.GetInstance().MAP_TILE_ROW_COUNT + column ) >= ( GameSettings.GetInstance().MAP_TILE_ROW_COUNT * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT ) ||
-				row < 0 ||
-				column < 0 ) {
+		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::UnRegisterActor>, invalid index, row : " + row + ", column: " + column );
 			return ;
 		}
@@ -97,9 +93,7 @@ public class NavigationMap : Entity
 	}
 	
 	public NodeType GetNodeType ( int row, int column) {
-		if ( ( 	row * GameSettings.GetInstance().MAP_TILE_ROW_COUNT + column ) >= ( GameSettings.GetInstance().MAP_TILE_ROW_COUNT * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT ) ||
-				row < 0 ||
-				column < 0 ) {
+		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::GetNodeType>, invalid index, row : " + row + ", column: " + column );
 			return NodeType.blocked;
 		}
@@ -108,9 +102,7 @@ public class NavigationMap : Entity
 	}
 	
 	public void SetCollisionMapType ( int row, int column, NodeType type ) {
-		if ( ( 	row * GameSettings.GetInstance().MAP_TILE_ROW_COUNT + column ) >= ( GameSettings.GetInstance().MAP_TILE_ROW_COUNT * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT ) ||
-				row < 0 ||
-				column < 0 ) {
+		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::GetNodeType>, invalid index, row : " + row + ", column: " + column );
 			return ;
 		}
@@ -240,11 +232,11 @@ public class NavigationMap : Entity
 			}
 		}
 		
-		return !(row < 0 || column < 0 );
+		return IsPosValid ( row, column );
 	}
 	
 	public bool CanWalkTo ( GameActor actor, int row, int column ) {
-		return true;
+		return IsPosValid ( row, column );
 	}
 	
 	public bool CanSeeInDiagonal ( GameActor actor, int row, int column ) {
@@ -264,33 +256,33 @@ public class NavigationMap : Entity
 	public int CalculateDistance ( GameActor actor, int row, int column ) {
 		int cur_map_x = (int)actor.map_pos.x;
 		int cur_map_y = (int)actor.map_pos.y;
-		int diff_map_x = Mathf.Abs ( cur_map_x - row );
-		int diff_map_y = Mathf.Abs ( cur_map_y - column );
+		int diff_map_x = Mathf.Abs ( cur_map_x - column );
+		int diff_map_y = Mathf.Abs ( cur_map_y - row );
 		return diff_map_x + diff_map_y;
 	}
 	
 	public bool MoveForward ( GameActor actor, int row, int column, out int new_map_x, out int new_map_y ) {
 		int cur_map_x = (int)actor.map_pos.x;
 		int cur_map_y = (int)actor.map_pos.y;
-		int diff_map_x = Mathf.Abs ( cur_map_x - row );
-		int diff_map_y = Mathf.Abs ( cur_map_y - column );
+		int diff_map_x = Mathf.Abs ( cur_map_x - column );
+		int diff_map_y = Mathf.Abs ( cur_map_y - row );
 		new_map_x = cur_map_x;
 		new_map_y = cur_map_y;
 		
 		if ( diff_map_x != 0 || diff_map_y != 0 ) {
 			if ( diff_map_x > diff_map_y ) {
-				if ( row > cur_map_x ) 
+				if ( column > cur_map_x ) 
 					++new_map_x;
 				else
 					--new_map_x;
 			} else {
-				if ( column > cur_map_y )
+				if ( row > cur_map_y )
 					++new_map_y;
 				else
 					--new_map_y;
 			}
 			
-			return IsPosValid ( new_map_x, new_map_y );
+			return IsPosValid ( new_map_y, new_map_x );
 		}
 		
 		return false;
@@ -299,35 +291,50 @@ public class NavigationMap : Entity
 	public bool MoveAway ( GameActor actor, int row, int column, out int new_map_x, out int new_map_y ) {
 		int cur_map_x = (int)actor.map_pos.x;
 		int cur_map_y = (int)actor.map_pos.y;
-		int diff_map_x = Mathf.Abs ( cur_map_x - row );
-		int diff_map_y = Mathf.Abs ( cur_map_y - column );
+		int diff_map_x = Mathf.Abs ( cur_map_x - column );
+		int diff_map_y = Mathf.Abs ( cur_map_y - row );
 		new_map_x = cur_map_x;
 		new_map_y = cur_map_y;
 		
 		// get away for that area!
 		if ( diff_map_x != 0 || diff_map_y != 0 ) {
 			if ( diff_map_x > diff_map_y ) {
-				if ( row < cur_map_x ) 
+				if ( column < cur_map_x ) 
 					++new_map_x;
 				else
 					--new_map_x;
 			} else {
-				if ( column < cur_map_y )
+				if ( row < cur_map_y )
 					++new_map_y;
 				else
 					--new_map_y;
 			}
 			
-			return IsPosValid ( new_map_x, new_map_y );
+			return IsPosValid ( new_map_y, new_map_x );
 		}
 		return false;
 	}
-
-	public void EatHuman ( GameActor actor, int row, int column ) {
+	
+	public void EatFood ( GameActor actor, int row, int column ) {
+		if ( !IsPosValid ( row, column ) ) {
+			Debug.LogError ( "<NavigationMap::EatFood>, invalid index, row : " + row + ", column: " + column );
+		}
+		
+		if ( collision_map_[row, column] != NodeType.food ) {
+			Debug.LogError ( "<NavigationMap::EatFood>, man, it's not food" );
+		}
+		
+		if ( GameSettings.GetInstance().FOOD_DISAPEAR_AFTER_EATING ) {
+			collision_map_[row, column] = NodeType.normal;
+		}
+	}
+	
+	public int EatHuman ( GameActor actor, int row, int column ) {
 		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::EatHuman>, invalid index, row : " + row + ", column: " + column );
 		}
 		
+		int kill_counter = 0;
 		// just eat the first human
 		GameActor target_actor = null;
 		for ( int i = 0; i < actor_map_[row,column].Count; ++i ) {
@@ -335,9 +342,13 @@ public class NavigationMap : Entity
 			if ( target_actor.Type() == ActorType.human ) {
 				if ( actor.isAlive() && target_actor.isAlive() ) {
 					actor.Combat ( target_actor );
+					if ( !target_actor.isAlive() ) {
+						++kill_counter;
+					}
 				}
 			}
 		}
+		return kill_counter;
 	}
 	
 	public bool IsPosValid ( int row, int column ) {

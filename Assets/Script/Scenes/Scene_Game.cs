@@ -1,5 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+class ActorSpawner {
+	public ActorSpawner ( ActorType p_type, int p_row, int p_column ) {
+		type = p_type;
+		row = p_row;
+		column = p_column;
+	}
+	
+	public ActorType type;
+	public int row;
+	public int column;
+}
 
 public class Scene_Game : Scene {
 //	GameActor human_ = null;
@@ -7,6 +20,7 @@ public class Scene_Game : Scene {
 	float wait_time_ = 0;
 //	GameActor monster_ = null;
 	int age_ = 0;
+	List<ActorSpawner> actor_spawners_ = new List<ActorSpawner>();
 	
 	protected override void _Resolver (Hashtable args)
 	{
@@ -20,13 +34,13 @@ public class Scene_Game : Scene {
 		
 //		Entity target_entity = null;
 		
-		GameActor human = GameActor.Create ( "Entity_Human" );
+		GameActor human = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
 		AddEntity ( human );
 		NavigationMap.GetInstance().RegisterActor ( human );
 		
 		GameActor monster = GameActor.Create ( "Entity_Monster" );
 		AddEntity ( monster );
-		monster.transform.localPosition = new Vector3 ( 64 * 3, 64 * 2 );
+		monster.transform.localPosition = new Vector3 ( 64 * 5, 64 * 4 );
 		NavigationMap.GetInstance().RegisterActor ( monster );
 		
 //		monster_ = GameActor.Create ( "BaseEntity" );
@@ -56,6 +70,24 @@ public class Scene_Game : Scene {
 			MonsterDoAction ();
 			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
 		}
+		
+		ActorSpawner target_spawner = null;
+		for ( int i = 0; i < actor_spawners_.Count; ++i ) {
+			target_spawner = actor_spawners_[i];
+			
+			GameActor actor;
+			if ( target_spawner.type == ActorType.human ) {
+				actor = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
+			} else {
+				actor = GameActor.Create ( GameSettings.GetInstance().MONSTER_PREFAB_NAME );
+			}
+			AddEntity ( actor );
+			actor.transform.localPosition = new Vector3 (	target_spawner.column * GameSettings.GetInstance().TILE_SIZE,
+															target_spawner.row * GameSettings.GetInstance().TILE_SIZE,
+															0 );
+			NavigationMap.GetInstance().RegisterActor ( actor );
+		}
+		actor_spawners_.Clear();
 	}
 	
 	override public void MouseButtonDownHandler ( int button_index ) {
@@ -99,7 +131,13 @@ public class Scene_Game : Scene {
 			if ( target_game_actor.Type() != ActorType.monster ) {
 				continue;
 			}
-			target_game_actor.DoAction ();
+			if ( target_game_actor.action_point > 0 ) {
+				target_game_actor.DoAction ();
+			}
 		}
+	}
+	
+	public void AddActorSpawner ( ActorType type, int row, int column ) {
+		actor_spawners_.Add ( new ActorSpawner ( type, row, column ) );
 	}
 }

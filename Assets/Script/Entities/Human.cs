@@ -34,8 +34,8 @@ public class Human : GameActor
 		if ( !processed && NavigationMap.GetInstance().GetNearestMonster ( this, out row, out column ) ) {
 			int cur_map_x = (int)this.map_pos.x;
 			int cur_map_y = (int)this.map_pos.y;
-			int diff_map_x = Mathf.Abs ( cur_map_x - row );
-			int diff_map_y = Mathf.Abs ( cur_map_y - column );
+			int diff_map_x = Mathf.Abs ( cur_map_x - column );
+			int diff_map_y = Mathf.Abs ( cur_map_y - row );
 			int distance = diff_map_x + diff_map_y;
 			if ( distance <= GameSettings.GetInstance().HUMAN_AVOID_DISTANCE ) {
 				int new_map_x = 0;
@@ -47,6 +47,7 @@ public class Human : GameActor
 											new_map_y * GameSettings.GetInstance().TILE_SIZE,
 											0.0f );
 					NavigationMap.GetInstance().RegisterActor ( this );
+					Debug.Log ( "<Human::_Thinker>, running away from monster, heading to " + new_map_x + ", " + new_map_y );
 					processed = true;
 				}
 			}
@@ -54,10 +55,8 @@ public class Human : GameActor
 		
 		// check if he see food
 		if ( !processed && NavigationMap.GetInstance().GetNearestFood ( this, out row, out column ) ) {
-			int cur_map_x = (int)this.map_pos.x;
-			int cur_map_y = (int)this.map_pos.y;
-			int new_map_x = cur_map_x;
-			int new_map_y = cur_map_y;
+			int new_map_x = 0;
+			int new_map_y = 0;
 			
 			if ( NavigationMap.GetInstance().MoveForward ( this, row, column, out new_map_x, out new_map_y ) ) {
 				NavigationMap.GetInstance().UnRegisterActor ( this );
@@ -65,9 +64,18 @@ public class Human : GameActor
 										new_map_y * GameSettings.GetInstance().TILE_SIZE,
 										0.0f );
 				NavigationMap.GetInstance().RegisterActor ( this );
+				
+				int cur_map_x = (int)this.map_pos.x;
+				int cur_map_y = (int)this.map_pos.y;
+				if ( cur_map_x == column && cur_map_y == row ) {
+					NavigationMap.GetInstance().EatFood ( this, new_map_x, new_map_y );
+					Scene_Game scene_game = (Scene_Game)SceneManager.GetInstance().cur_scene;
+					scene_game.AddActorSpawner ( ActorType.human, cur_map_x, cur_map_y );
+				}
 			}
 			
 			processed = true;
+			Debug.Log ( "<Human::_Thinker>, running to food, heading to " + column + ", " + row );
 		}
 		
 		if ( moving_to_target_ ) {
@@ -77,6 +85,7 @@ public class Human : GameActor
 		if ( !processed && !moving_to_target_ ) {
 			NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ );
 			moving_to_target_ = true;
+			Debug.Log ( "<Human::_Thinker>, walking to random pos, heading to " + target_column_ + ", " + target_row_ );
 			processed = true;
 		}
 		
@@ -84,7 +93,7 @@ public class Human : GameActor
 			int cur_map_x = (int)this.map_pos.x;
 			int cur_map_y = (int)this.map_pos.y;
 			
-			if ( cur_map_x == target_row_ && cur_map_x == target_row_ ) {
+			if ( cur_map_x == target_column_ && cur_map_y == target_row_ ) {
 				moving_to_target_ = false;
 			} else {
 				int new_map_x = 0;
@@ -95,9 +104,10 @@ public class Human : GameActor
 											new_map_y * GameSettings.GetInstance().TILE_SIZE,
 											0.0f );
 					NavigationMap.GetInstance().RegisterActor ( this );
+					processed = true;
+					Debug.Log ( "<Human::_Thinker>, continue walking to random pos, heading to " + target_column_ + ", " + target_row_ );
 				}
 				
-				processed = true;
 			}
 		}
 	}

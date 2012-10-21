@@ -42,7 +42,7 @@ public class GameActor : Entity
 	}
 	
 	public bool isAlive() {
-		return health_ >= 0;
+		return health_ > 0;
 	}
 	
 	public void ReduceHealth ( int amount ) {
@@ -53,6 +53,7 @@ public class GameActor : Entity
 		health_ -= amount;
 		if ( health_ <= 0 ) {
 			remove_count_down_ = 1;
+			NavigationMap.GetInstance().UnRegisterActor ( this );
 		}
 	}
 	
