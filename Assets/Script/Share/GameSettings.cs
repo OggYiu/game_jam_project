@@ -21,6 +21,7 @@ public class GameSettings : MonoBehaviour {
 	public string HUMAN_PREFAB_NAME = "Entity_Human";
 	public string MONSTER_PREFAB_NAME = "Entity_Monster";
 	public bool FOOD_DISAPEAR_AFTER_EATING = true;
+	public int TURN_LIMIT = 0;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {

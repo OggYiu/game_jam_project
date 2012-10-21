@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+enum GameEndReason {
+	human_rulz,
+	monster_rulz,
+	time_out,
+}
+
 class ActorSpawner {
 	public ActorSpawner ( ActorType p_type, int p_row, int p_column ) {
 		type = p_type;
@@ -22,10 +28,26 @@ public class Scene_Game : Scene {
 	int age_ = 0;
 	List<ActorSpawner> actor_spawners_ = new List<ActorSpawner>();
 	Tile_Map tile_map_;
+	GameEndReason game_end_reason_;
+	const float game_end_interval_ = 3;
+	float game_end_count_down_ = -1;
+	bool is_game_ended_ = false;
+	GUIText game_end_text_ = null;
+	[SerializeField] AudioSource audio_dino_die_;
+	[SerializeField] AudioSource audio_human_die_;
+	[SerializeField] AudioSource audio_win_;
+	bool is_dino_die_sound_play_ = false;
+	bool is_human_die_sound_play_ = false;
 	
 	protected override void _Resolver (Hashtable args)
 	{
 		base._Resolver (args);
+		
+		game_end_text_ = this.GetComponentInChildren<GUIText>();
+		if ( game_end_text_ == null ) {
+			Debug.LogError ( "<Scene_Game::_Resolver> invalid game_end_text_" );
+		}
+		game_end_text_.text = "";
 		
 //		if (args.Contains("Scene_Game")) {
 //			scene_game_ =(Scene_Game)args["Scene_Game"];
@@ -58,6 +80,10 @@ public class Scene_Game : Scene {
 	
 	protected override void _Updater (float deltaTime)
 	{
+		if ( is_game_ended_ ) {
+			return ;
+		}
+		
 		NavigationMap.GetInstance().OnUpdate();
 		base._Updater (deltaTime);
 		
@@ -66,13 +92,44 @@ public class Scene_Game : Scene {
 			NextTurn ();
 		}
 		
+		if ( game_end_count_down_ > 0 ) {
+			game_end_count_down_ -= deltaTime;
+			if ( game_end_count_down_ <= 0 ) {
+				is_game_ended_ = true;	
+				switch ( game_end_reason_ ) {
+				case GameEndReason.human_rulz:
+					game_end_text_.text = "HUMAN RULZ!";
+					break;
+				case GameEndReason.monster_rulz:
+					game_end_text_.text = "MONSTER RULZ!";
+					break;
+				case GameEndReason.time_out:
+					game_end_text_.text = "TIMES UP!";
+					break;
+				}
+				audio_win_.Play ();
+				return ;
+			}
+		} else {
+			CheckIfGameEnd ();
+		}
+		
 		if ( wait_time_ > 0 ) {
 			wait_time_ -= Time.deltaTime;
 		} else {
+			NavigationMap.GetInstance().RefreshAll ();
 			// human first
 			HumanDoAction ();
 			MonsterDoAction ();
 			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
+			
+			if ( is_dino_die_sound_play_ ) {
+				audio_dino_die_.Play ();
+			} else if ( is_human_die_sound_play_ ) {
+				audio_human_die_.Play ();
+			}
+			is_dino_die_sound_play_ = false;
+			is_human_die_sound_play_ = false;
 		}
 		
 		ActorSpawner target_spawner = null;
@@ -82,8 +139,10 @@ public class Scene_Game : Scene {
 			GameActor actor;
 			if ( target_spawner.type == ActorType.human ) {
 				actor = GameActor.Create ( GameSettings.GetInstance().HUMAN_PREFAB_NAME );
+				++GameStatics.human_spawned;
 			} else {
 				actor = GameActor.Create ( GameSettings.GetInstance().MONSTER_PREFAB_NAME );
+				++GameStatics.monster_spawned;
 			}
 			AddEntity ( actor );
 			actor.transform.localPosition = new Vector3 (	target_spawner.column * GameSettings.GetInstance().TILE_SIZE,
@@ -95,7 +154,7 @@ public class Scene_Game : Scene {
 	}
 	
 	override public void MouseButtonDownHandler ( int button_index ) {
-		NextTurn ();
+//		NextTurn ();
 	}
 	
 	bool IsAllActionDone () {
@@ -109,9 +168,57 @@ public class Scene_Game : Scene {
 	
 	void NextTurn () {
 		++age_;
+		GameStatics.game_turn = age_;
 		
+		GameActor target_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
-			((GameActor)entities_[i]).TurnBeginHandler ();
+			target_actor = ((GameActor)entities_[i]);
+			target_actor.TurnBeginHandler ();
+			
+			if ( target_actor.Type() == ActorType.human ) {
+				if ( target_actor.age > GameStatics.oldest_human ) {
+					GameStatics.oldest_human = target_actor.age;
+				}
+			} else {
+				if ( target_actor.age > GameStatics.oldest_monster ) {
+					GameStatics.oldest_monster = target_actor.age;
+				}
+			}
+		}
+		
+//		oldest_human
+//			oldest_monster = 0;
+	}
+	
+	void CheckIfGameEnd () {
+		if ( game_end_count_down_ > 0 || is_game_ended_ ) {
+			return ;
+		}
+		
+		if ( GameSettings.GetInstance().TURN_LIMIT > 0 && age_ >= GameSettings.GetInstance().TURN_LIMIT ) {
+			game_end_count_down_ = game_end_interval_;
+			game_end_reason_ = GameEndReason.time_out;
+			return ;
+		}
+		
+		bool only_human_existed = true;
+		bool only_monster_existed = true;
+		GameActor target_actor;
+		for ( int i = 0; i < entities_.Count; ++i ) {
+			target_actor = (GameActor)entities_[i];
+			if ( target_actor.Type() == ActorType.monster ) {
+				only_human_existed = false;
+			} else {
+				only_monster_existed = false;
+			}
+		}
+		
+		if ( only_human_existed ) {
+			game_end_count_down_ = game_end_interval_;
+			game_end_reason_ = GameEndReason.human_rulz;
+		} else if ( only_monster_existed ) {
+			game_end_count_down_ = game_end_interval_;
+			game_end_reason_ = GameEndReason.monster_rulz;
 		}
 	}
 	
@@ -143,5 +250,18 @@ public class Scene_Game : Scene {
 	
 	public void AddActorSpawner ( ActorType type, int row, int column ) {
 		actor_spawners_.Add ( new ActorSpawner ( type, row, column ) );
+	}
+	
+	public int age {
+		set {}
+		get { return age_; }
+	}
+	
+	public void PlayAudioDinoDie () {
+		is_dino_die_sound_play_ = true;
+	}
+	
+	public void PlayAudioHumanDie () {
+		is_human_die_sound_play_ = true;
 	}
 }
