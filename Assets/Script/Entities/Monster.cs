@@ -26,7 +26,7 @@ public class Monster : GameActor
 //		if ( false ) {
 //			processed = true;
 //		}
-		
+
 		int row = -1;
 		int column = -1;
 		if ( !processed && NavigationMap.GetInstance().GetNearestHumanForMonster( this, out row, out column ) ) {
@@ -45,7 +45,7 @@ public class Monster : GameActor
 				int cur_map_y = (int)this.map_pos.y;
 			
 				if ( cur_map_x == column && cur_map_y == row ) {
-					int kill_counter = NavigationMap.GetInstance().EatHuman ( this, cur_map_x, cur_map_y );
+					int kill_counter = NavigationMap.GetInstance().EatHuman ( this, cur_map_y, cur_map_x );
 					
 					// spawn monsters
 					if ( kill_counter > 0 ) {

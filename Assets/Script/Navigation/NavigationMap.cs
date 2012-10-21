@@ -19,7 +19,7 @@ public class NavigationMap : Entity
 	
 	protected override void _Initer ( Hashtable args ) {
 		base._Initer ( args );
-		collision_map_ = new NodeType[GameSettings.GetInstance().MAP_TILE_ROW_COUNT, GameSettings.GetInstance().MAP_TILE_ROW_COUNT];
+		collision_map_ = new NodeType[GameSettings.GetInstance().MAP_TILE_ROW_COUNT, GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT];
 		
 		
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
@@ -94,6 +94,21 @@ public class NavigationMap : Entity
 		}
 	}
 	
+	public void RefreshAll () {
+		if ( actor_map_ != null ) {
+			for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
+				for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
+					actor_map_[i,j].Clear();
+				}
+			}
+			
+			GameActor target_actor;
+			for ( int i = 0; i < scene_game_.entities.Count; ++i ) {
+				this.RegisterActor ( (GameActor)scene_game_.entities[i] );
+			}
+		}
+	}
+	
 	public NodeType GetNodeType ( int row, int column) {
 		if ( !IsPosValid ( row, column ) ) {
 			Debug.LogError ( "<NavigationMap::GetNodeType>, invalid index, row : " + row + ", column: " + column );
@@ -128,6 +143,7 @@ public class NavigationMap : Entity
 //				Debug.Log ( "actor_map_ i: " + i + ", j: " + j + ": " + actor_map_[i,j] );
 //			}
 //		}
+		
 		int closest_distance = int.MaxValue;
 		int temp_distance = int.MaxValue;
 		row = -1;
@@ -191,7 +207,7 @@ public class NavigationMap : Entity
 				for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
 					for ( int k = 0; k < actor_map_[i,j].Count; ++k ) {
 						if ( actor_map_[i,j][k].Type() == ActorType.human ) {
-							temp_distance = ( i * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT + i );
+							temp_distance = this.CalculateDistance ( actor, row, column );
 							if ( closest_distance > temp_distance ) {
 								food_found = true;
 								row = i;
@@ -208,6 +224,14 @@ public class NavigationMap : Entity
 		}
 		
 		return false;
+	}
+	
+	public void SetNodeType ( NodeType type, int row, int column ) {
+		if ( !IsPosValid ( row, column ) ) {
+			Debug.LogError ( "<NavigationMap::EatHuman>, invalid index, row : " + row + ", column: " + column );
+		}
+		
+		collision_map_[row,column] = type;
 	}
 	
 	public bool GetClosestNodeType ( GameActor actor, NodeType type, out int row, out int column ) {
@@ -339,6 +363,8 @@ public class NavigationMap : Entity
 		int kill_counter = 0;
 		// just eat the first human
 		GameActor target_actor = null;
+		bool is_dino_died = false;
+		bool is_human_died = false;
 		for ( int i = 0; i < actor_map_[row,column].Count; ++i ) {
 			target_actor = actor_map_[row,column][i];
 			if ( target_actor.Type() == ActorType.human ) {
@@ -346,16 +372,27 @@ public class NavigationMap : Entity
 					actor.Combat ( target_actor );
 					if ( !target_actor.isAlive() ) {
 						++kill_counter;
+						is_human_died = true;
+					}
+					
+					if ( !actor.isAlive() ) {
+						is_dino_died = true;
 					}
 				}
 			}
+		}
+		
+		if ( is_dino_died ) {
+			scene_game_.PlayAudioDinoDie ();
+		} else if ( is_human_died ) {
+			scene_game_.PlayAudioHumanDie ();
 		}
 		return kill_counter;
 	}
 	
 	public bool IsPosValid ( int row, int column ) {
-		return 	( row >= 0 && row <= GameSettings.GetInstance().MAP_TILE_ROW_COUNT ) &&
-				( column >= 0 && column <= GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT );
+		return 	( row >= 0 && row < GameSettings.GetInstance().MAP_TILE_ROW_COUNT ) &&
+				( column >= 0 && column < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT );
 	}
 	
     private static NavigationMap s_instance;
@@ -367,6 +404,5 @@ public class NavigationMap : Entity
         }
         return s_instance;
     }
-	
 }
 

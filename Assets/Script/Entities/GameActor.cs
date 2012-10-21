@@ -25,6 +25,7 @@ public class GameActor : Entity
 	protected bool moving_to_target_ = false;
 	protected int target_row_ = -1;
 	protected int target_column_ = -1;
+	protected string[] animation_frame_name_;
 	
 	// Use this for initialization
 	void Start ()
@@ -149,6 +150,11 @@ public class GameActor : Entity
 	public int damage {
 		set {}
 		get { return damage_; }
+	}
+	
+	public int age {
+		set {}
+		get { return age_; }
 	}
 }
 

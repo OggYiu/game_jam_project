@@ -173,6 +173,6 @@ public class Tile_Map {
 		basetile.transform.parent = SceneManager.GetInstance().entities_parent.transform;
 		basetile.transform.localPosition = new Vector3(col * tile_height, row * tile_width, 2);
 		
-		NavigationMap.GetInstance().SetCollisionMapType(col, row, nt);
+		NavigationMap.GetInstance().SetCollisionMapType(row, col, nt);
 	}
 }

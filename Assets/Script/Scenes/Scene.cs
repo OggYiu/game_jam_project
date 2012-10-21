@@ -88,4 +88,9 @@ public class Scene : Entity {
 	
 	virtual public void MousePositionUpdateHandler ( Vector3 mousepos ) {
 	}
+	
+	public List<Entity> entities {
+		set {}
+		get { return entities_; }
+	}
 }

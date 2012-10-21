@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Human : GameActor
 {
+	bool is_spawner_ = false;
 	protected override void _Initer (Hashtable args)
 	{
 		base._Initer (args);
@@ -10,6 +11,7 @@ public class Human : GameActor
 		action_point_gainer_ = GameSettings.GetInstance().HUMAN_ACTION_POINT;
 		health_ = GameSettings.GetInstance().HUMAN_HEALTH;
 		damage_ = GameSettings.GetInstance().HUMAN_DAMAGE;
+		animation_frame_name_ = new string[]{ "haha", "hoho", "wawa" };
 	}
 	
 	protected override void _Resolver (Hashtable args)
@@ -17,6 +19,18 @@ public class Human : GameActor
 		base._Resolver (args);
 	}
 	
+	protected override void _Disposer ()
+	{
+		base._Disposer ();
+		
+		// give your food back to the map
+		if ( is_spawner_ ) {
+			int cur_map_x = (int)this.map_pos.x;
+			int cur_map_y = (int)this.map_pos.y;
+			NavigationMap.GetInstance().SetNodeType ( NodeType.food, cur_map_y, cur_map_x );
+		}
+	}
+			
 	protected override void _Thinker ()
 	{
 		base._Thinker ();
@@ -30,7 +44,15 @@ public class Human : GameActor
 //			processed = true;
 //		}
 		
-		// see if he see a monster 
+		if ( !processed && is_spawner_ ) {
+			int cur_map_x = (int)this.map_pos.x;
+			int cur_map_y = (int)this.map_pos.y;
+			Scene_Game scene_game = (Scene_Game)SceneManager.GetInstance().cur_scene;
+			scene_game.AddActorSpawner ( ActorType.human, cur_map_y, cur_map_x );
+			processed = true;
+		}
+		
+		// see if he see a monster
 		if ( !processed && NavigationMap.GetInstance().GetNearestMonster ( this, out row, out column ) ) {
 			int cur_map_x = (int)this.map_pos.x;
 			int cur_map_y = (int)this.map_pos.y;
@@ -68,9 +90,11 @@ public class Human : GameActor
 				int cur_map_x = (int)this.map_pos.x;
 				int cur_map_y = (int)this.map_pos.y;
 				if ( cur_map_x == column && cur_map_y == row ) {
-					NavigationMap.GetInstance().EatFood ( this, new_map_x, new_map_y );
+					NavigationMap.GetInstance().EatFood ( this, new_map_y, new_map_x );
 					Scene_Game scene_game = (Scene_Game)SceneManager.GetInstance().cur_scene;
-					scene_game.AddActorSpawner ( ActorType.human, cur_map_x, cur_map_y );
+//					scene_game.AddActorSpawner ( ActorType.human, cur_map_y, cur_map_x );
+					is_spawner_ = true;
+					moving_to_target_ = false;
 				}
 			}
 			
@@ -90,24 +114,24 @@ public class Human : GameActor
 		}
 		
 		if ( moving_to_target_ ) {
-			int cur_map_x = (int)this.map_pos.x;
-			int cur_map_y = (int)this.map_pos.y;
+			int new_map_x = 0;
+			int new_map_y = 0;
 			
-			if ( cur_map_x == target_column_ && cur_map_y == target_row_ ) {
-				moving_to_target_ = false;
-			} else {
-				int new_map_x = 0;
-				int new_map_y = 0;
-				if ( NavigationMap.GetInstance().MoveForward ( this, target_row_, target_column_, out new_map_x, out new_map_y ) ) {
-					NavigationMap.GetInstance().UnRegisterActor ( this );
-					this.pos = new Vector3 (new_map_x * GameSettings.GetInstance().TILE_SIZE,
-											new_map_y * GameSettings.GetInstance().TILE_SIZE,
-											0.0f );
-					NavigationMap.GetInstance().RegisterActor ( this );
-					processed = true;
-					Debug.Log ( "<Human::_Thinker>, continue walking to random pos, heading to " + target_column_ + ", " + target_row_ );
-				}
+			if ( NavigationMap.GetInstance().MoveForward ( this, target_row_, target_column_, out new_map_x, out new_map_y ) ) {
+				NavigationMap.GetInstance().UnRegisterActor ( this );
+				this.pos = new Vector3 (new_map_x * GameSettings.GetInstance().TILE_SIZE,
+										new_map_y * GameSettings.GetInstance().TILE_SIZE,
+										0.0f );
+				NavigationMap.GetInstance().RegisterActor ( this );
 				
+				int cur_map_x = (int)this.map_pos.x;
+				int cur_map_y = (int)this.map_pos.y;
+				
+				if ( cur_map_x == target_column_ && cur_map_y == target_row_ ) {
+					moving_to_target_ = false;
+				}
+				processed = true;
+				Debug.Log ( "<Human::_Thinker>, continue walking to random pos, heading to " + target_column_ + ", " + target_row_ );
 			}
 		}
 	}
