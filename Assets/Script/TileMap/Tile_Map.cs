@@ -2,18 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Tile_Map : MonoBehaviour {
-
-	[SerializeField] int tile_height;
-	[SerializeField] int tile_width;
+public class Tile_Map {
+	int tile_height;
+	int tile_width;
 	
-	[SerializeField] int tile_col;
-	[SerializeField] int tile_row;
+	int tile_col;
+	int tile_row;
 	
-	[SerializeField] GameObject tileMapContainer = null;
-	
-	// Use this for initialization
-	void Start () {
+	public void Init () {
+		tile_width = tile_height = GameSettings.GetInstance().TILE_SIZE;
+		tile_col = GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT;
+		tile_row = GameSettings.GetInstance().MAP_TILE_ROW_COUNT;
 		
 		NodeType[,] map = new NodeType[tile_col,tile_row];
 		for (int i = 0; i < tile_col; ++i)
@@ -141,48 +140,6 @@ public class Tile_Map : MonoBehaviour {
 				GenerateBaseTile(i, j, map[i,j]);
 			}
 		}
-		/*
-		for (int i = 0; i < tile_col; ++i)
-		{
-			for (int j = 0; j < tile_row; ++j)
-			{
-				string texture_path;
-				
-				int result = Random.Range(0, 100);
-				if (result <= 20)
-				{
-					texture_path = "Texture/water";
-					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.blocked);
-				}
-				else if (result <= 40)
-				{
-					texture_path = "Texture/tree_a";
-					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.food);
-				}
-				else if (result <= 60)
-				{
-					texture_path = "Texture/grass";
-					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.grass);
-				}
-				else if (result <= 80)
-				{
-					texture_path = "Texture/sand";
-					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.normal);
-				}
-				else
-				{
-					texture_path = "Texture/hills_a";
-					NavigationMap.GetInstance().SetCollisionMapType(i, j, NodeType.mountain);
-				}
-				
-				GameObject prefab = Resources.Load("Prefabs/BaseTile", typeof(GameObject)) as GameObject;
-				Base_Tile basetile = ((GameObject)GameObject.Instantiate(prefab)).gameObject.GetComponent<Base_Tile>();
-				basetile.init(texture_path);
-				basetile.transform.parent = tileMapContainer.transform;
-				basetile.transform.localPosition = new Vector3(j * tile_height, i * tile_width, 0);
-			}
-		}
-		*/
 	}
 	
 	private void GenerateBaseTile(int col, int row, NodeType nt)
@@ -213,14 +170,9 @@ public class Tile_Map : MonoBehaviour {
 		GameObject prefab = Resources.Load("Prefabs/BaseTile", typeof(GameObject)) as GameObject;
 		Base_Tile basetile = ((GameObject)GameObject.Instantiate(prefab)).gameObject.GetComponent<Base_Tile>();
 		basetile.init(texture_path);
-		basetile.transform.parent = tileMapContainer.transform;
-		basetile.transform.localPosition = new Vector3(col * tile_height, row * tile_width, 0);
+		basetile.transform.parent = SceneManager.GetInstance().entities_parent.transform;
+		basetile.transform.localPosition = new Vector3(col * tile_height, row * tile_width, 2);
 		
-		//NavigationMap.GetInstance().SetCollisionMapType(col, row, nt);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		NavigationMap.GetInstance().SetCollisionMapType(col, row, nt);
 	}
 }

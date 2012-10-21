@@ -21,6 +21,7 @@ public class Scene_Game : Scene {
 //	GameActor monster_ = null;
 	int age_ = 0;
 	List<ActorSpawner> actor_spawners_ = new List<ActorSpawner>();
+	Tile_Map tile_map_;
 	
 	protected override void _Resolver (Hashtable args)
 	{
@@ -42,6 +43,9 @@ public class Scene_Game : Scene {
 		AddEntity ( monster );
 		monster.transform.localPosition = new Vector3 ( 64 * 5, 64 * 4 );
 		NavigationMap.GetInstance().RegisterActor ( monster );
+		
+		tile_map_ = new Tile_Map ();
+		tile_map_.Init ();
 		
 //		monster_ = GameActor.Create ( "BaseEntity" );
 //		AddEntity ( monster_ );
