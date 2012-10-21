@@ -7,6 +7,9 @@ public class Scene_Star : Scene {
 	public GameObject star_background;
 	public GameObject game_camera;
 	
+	public GUIText mountain_percentage_text;
+	public GUIText forest_sand_percentage_text;
+	
 	float upper_part_sum = 0;
 	float lower_part_sum = 0;
 	float total_sum = 0;
@@ -54,7 +57,16 @@ public class Scene_Star : Scene {
 				game_camera.transform.position = new Vector3(game_camera.transform.position.x + (speed * 0.65f), game_camera.transform.position.y, game_camera.transform.position.z);
 			}
 		}
-	
+		
+		if (mountain_percentage_text != null)
+		{
+			mountain_percentage_text.text = "Mountain Rate : " + (upper_part_sum / total_sum).ToString();
+		}
+		
+		if (forest_sand_percentage_text != null)
+		{
+			forest_sand_percentage_text.text = "Forest or Sand Rate : " + (lower_part_sum / total_sum).ToString();
+		}
 	}
 	
 	override public void MousePositionUpdateHandler ( Vector3 mousepos ) 
@@ -69,11 +81,9 @@ public class Scene_Star : Scene {
 			}
 			else
 			{
-				
-				float mountain_percentage = upper_part_sum / total_sum;
-				float forest_sand_percentage = lower_part_sum / total_sum;
-				int a = 0;
-				
+				GameDataShare.mountain_percentage = upper_part_sum / total_sum;
+				GameDataShare.forest_sand_percentage = lower_part_sum / total_sum;
+				Application.LoadLevel("Yiu");
 			}
 		}
 		

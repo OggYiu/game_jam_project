@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/TileMap/Tile_Map.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Scenes/Scene_Star.cs">
     <Files>
       <File FileName="Assets/Script/Share/GameStatics.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Scenes/Scene.cs" Line="1" Column="1" />
@@ -10,11 +10,13 @@
       <File FileName="Assets/Script/Entities/Monster.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Entities/GameActor.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/GLRenderer/GameMeshMap.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="18" Column="2" />
+      <File FileName="Assets/Script/Navigation/NavigationMap.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Scenes/Scene_Game.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Scenes/SceneManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="179" Column="3" />
-      <File FileName="Assets/Script/GameApp.cs" Line="156" Column="28" />
+      <File FileName="Assets/Script/TileMap/Tile_Map.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/GameApp.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Scenes/Scene_Star.cs" Line="59" Column="4" />
+      <File FileName="Assets/Script/GameDataShare.cs" Line="7" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -28,11 +30,11 @@
                 <Node name="Entities" expanded="True" />
                 <Node name="GLRenderer" expanded="True" />
                 <Node name="Navigation" expanded="True" />
-                <Node name="Scenes" expanded="True" />
-                <Node name="Share" expanded="True" />
-                <Node name="TileMap" expanded="True">
-                  <Node name="Tile_Map.cs" selected="True" />
+                <Node name="Scenes" expanded="True">
+                  <Node name="Scene_Star.cs" selected="True" />
                 </Node>
+                <Node name="Share" expanded="True" />
+                <Node name="TileMap" expanded="True" />
               </Node>
             </Node>
           </Node>

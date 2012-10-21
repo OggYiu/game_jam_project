@@ -23,8 +23,8 @@ public class Tile_Map {
 			}
 		}
 		
-		double mountaion_percentage = 0.2;
-		double sand_forest_percentage = 0.3;
+		double mountaion_percentage = GameDataShare.mountain_percentage;
+		double sand_forest_percentage = GameDataShare.forest_sand_percentage;;
 		
 		int no_of_mountain = Mathf.RoundToInt((float)(tile_col * tile_row * mountaion_percentage));
 		
