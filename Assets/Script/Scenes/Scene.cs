@@ -75,4 +75,7 @@ public class Scene : Entity {
 	
 	virtual public void MouseButtonDownHandler ( int button_index ) {
 	}
+	
+	virtual public void MousePositionUpdateHandler ( Vector3 mousepos ) {
+	}
 }

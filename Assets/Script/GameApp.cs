@@ -75,8 +75,12 @@ public class GameApp : MonoBehaviour {
 		
 		SceneManager.GetInstance().OnUpdate();
 		
+		SceneManager.GetInstance().MousePositionUpdateHandler ( Input.mousePosition );
 		if ( Input.GetMouseButtonDown ( 0 ) ) {
 			SceneManager.GetInstance().MouseButtonDownHandler ( 0 );
+		}
+		if ( Input.GetMouseButtonDown ( 1 ) ) {
+			SceneManager.GetInstance().MouseButtonDownHandler ( 1 );
 //			last_mouse_pos_ = Input.mousePosition;
 //			RaycastHit hit;
 //		    Ray ray = main_camera_.ScreenPointToRay ( Input.mousePosition );

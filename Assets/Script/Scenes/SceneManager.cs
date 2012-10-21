@@ -78,6 +78,12 @@ public class SceneManager : Entity {
 			cur_scene_.MouseButtonDownHandler ( button_index );
 		}
 	}
+	
+	public void MousePositionUpdateHandler ( Vector3 mousepos ) {
+		if ( cur_scene_ != null ) {
+			cur_scene_.MousePositionUpdateHandler ( mousepos );
+		}
+	}
 //	public void RegisterPage_ ( string page_prefab_name ) {
 //		if ( page_registry_
 //		page_registry_.Add ( page_prefab_name, index );

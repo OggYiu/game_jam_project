@@ -76,9 +76,11 @@
      <Compile Include="Assets\Script\Scenes\SceneManager.cs" />
      <Compile Include="Assets\Script\Scenes\Scene_Game.cs" />
      <Compile Include="Assets\Script\Scenes\Scene_Intro.cs" />
+     <Compile Include="Assets\Script\Scenes\Scene_Star.cs" />
      <Compile Include="Assets\Script\Share\DebugUtils.cs" />
      <Compile Include="Assets\Script\Share\GameSettings.cs" />
      <Compile Include="Assets\Script\Share\GameUtils.cs" />
+     <Compile Include="Assets\Script\Star\Star.cs" />
      <Compile Include="Assets\Script\TileMap\Base_Tile.cs" />
      <Compile Include="Assets\Script\TileMap\Tile_Map.cs" />
      <Compile Include="Assets\iTween\Plugins\iTween.cs" />
