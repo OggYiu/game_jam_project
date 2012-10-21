@@ -101,6 +101,7 @@ public class Scene_Game : Scene {
 		
 		if ( IsAllActionDone() ) {
 			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
+//			DamageCharacterInWater ();
 			NextTurn ();
 		}
 		
@@ -136,9 +137,13 @@ public class Scene_Game : Scene {
 			wait_time_ = GameSettings.GetInstance().ACTION_INTERVAL;
 			
 			if ( is_dino_die_sound_play_ ) {
-				audio_dino_die_.Play ();
+				if ( !audio_dino_die_.isPlaying ) {
+					audio_dino_die_.Play ();
+				}
 			} else if ( is_human_die_sound_play_ ) {
-				audio_human_die_.Play ();
+				if ( !audio_human_die_.isPlaying ) {
+					audio_human_die_.Play ();
+				}
 			}
 			is_dino_die_sound_play_ = false;
 			is_human_die_sound_play_ = false;
@@ -171,6 +176,8 @@ public class Scene_Game : Scene {
 	
 	bool IsAllActionDone () {
 		for ( int i = 0; i < entities_.Count; ++i ) {
+			if ( !((GameActor)entities_[i]).isAlive() )
+				continue;
 			if ( !((GameActor)entities_[i]).IsActionEnded () ) {
 				return false;
 			}
@@ -185,6 +192,10 @@ public class Scene_Game : Scene {
 		GameActor target_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_actor = ((GameActor)entities_[i]);
+			
+			if ( !target_actor.isAlive() )
+				continue;
+			
 			target_actor.TurnBeginHandler ();
 			
 			if ( target_actor.Type() == ActorType.human ) {
@@ -218,6 +229,8 @@ public class Scene_Game : Scene {
 		GameActor target_actor;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_actor = (GameActor)entities_[i];
+			if ( !target_actor.isAlive() )
+				continue;
 			if ( target_actor.Type() == ActorType.monster ) {
 				only_human_existed = false;
 			} else {
@@ -238,6 +251,9 @@ public class Scene_Game : Scene {
 		GameActor target_game_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_game_actor = ((GameActor)entities_[i]);
+			if ( !target_game_actor.isAlive() ) {
+				continue;
+			}
 			if ( target_game_actor.Type() != ActorType.human ) {
 				continue;
 			}
@@ -251,6 +267,9 @@ public class Scene_Game : Scene {
 		GameActor target_game_actor = null;
 		for ( int i = 0; i < entities_.Count; ++i ) {
 			target_game_actor = ((GameActor)entities_[i]);
+			if ( !target_game_actor.isAlive() ) {
+				continue;
+			}
 			if ( target_game_actor.Type() != ActorType.monster ) {
 				continue;
 			}
@@ -259,6 +278,29 @@ public class Scene_Game : Scene {
 			}
 		}
 	}
+	
+//	void DamageCharacterInWater () {
+//		int cur_map_x = 0;
+//		int cur_map_y = 0;
+//		GameActor target_actor;
+//		for ( int i = 0; i < entities_.Count; ++i )  {
+//			target_actor = (GameActor)entities_[i];
+//			cur_map_x = (int)target_actor.map_pos.x;
+//			cur_map_y = (int)target_actor.map_pos.y;
+//			NodeType type = NavigationMap.GetInstance().GetNodeType ( cur_map_y, cur_map_x );
+//			if ( type == NodeType.blocked ) {
+//				target_actor.ReduceHealth ( GameSettings.GetInstance().WATER_DAMAGE );
+//				
+//				if ( !target_actor.isAlive() ) {
+//					if ( target_actor.Type() == ActorType.human ) {
+//						PlayAudioHumanDie();
+//					} else {
+//						PlayAudioDinoDie();
+//					}
+//				}
+//			}
+//		}
+//	}
 	
 	public void AddActorSpawner ( ActorType type, int row, int column ) {
 		actor_spawners_.Add ( new ActorSpawner ( type, row, column ) );

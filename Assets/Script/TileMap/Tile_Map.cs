@@ -173,6 +173,7 @@ public class Tile_Map {
 		basetile.init(texture_path);
 		basetile.transform.parent = SceneManager.GetInstance().entities_parent.transform;
 		basetile.transform.localPosition = new Vector3(col * tile_height, row * tile_width, 2);
+		basetile.transform.localScale = new Vector3 ( 64, 1, 64 );
 		
 		NavigationMap.GetInstance().SetCollisionMapType(row, col, nt);
 	}

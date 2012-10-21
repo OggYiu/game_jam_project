@@ -70,6 +70,9 @@ public class Scene : Entity {
 		}
 		
 		for ( int i = 0; i < entities_.Count; ++i ) {
+			if ( entities_[i].need_removed )
+				continue;
+			
 			entities_[i].OnUpdate ( deltaTime );
 		}
 	}

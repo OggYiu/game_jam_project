@@ -28,9 +28,6 @@ public class NavigationMap : Entity
 			}
 		}
 		
-		// testing
-		collision_map_[2, 2] = NodeType.food;
-		
 		actor_map_ = new List<GameActor> [GameSettings.GetInstance().MAP_TILE_ROW_COUNT,GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT];
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
@@ -49,6 +46,7 @@ public class NavigationMap : Entity
 						scene_game_.AddEntity ( monster );
 						NavigationMap.GetInstance().RegisterActor ( monster );
 						monster.transform.localPosition = new Vector3 ( GameSettings.GetInstance().TILE_SIZE * j, GameSettings.GetInstance().TILE_SIZE * i );
+						monster.transform.localScale = new Vector3 ( 1, 1, 1);
 					}
 				} else if ( collision_map_[i,j] == NodeType.grass ) {
 					if ( GameSettings.GetInstance().HUMAN_SPAWN_CHANCE >= Random.Range ( 0, 100 ) ) {
@@ -56,6 +54,7 @@ public class NavigationMap : Entity
 						scene_game_.AddEntity ( human );
 						NavigationMap.GetInstance().RegisterActor ( human );
 						human.transform.localPosition = new Vector3 ( GameSettings.GetInstance().TILE_SIZE * j, GameSettings.GetInstance().TILE_SIZE * i );
+						human.transform.localScale = new Vector3 ( 1, 1, 1 );
 					}
 				}
 			}
@@ -125,9 +124,13 @@ public class NavigationMap : Entity
 				}
 			}
 			
-//			GameActor target_actor;
+			GameActor target_actor;
 			for ( int i = 0; i < scene_game_.entities.Count; ++i ) {
-				this.RegisterActor ( (GameActor)scene_game_.entities[i] );
+				target_actor = (GameActor)scene_game_.entities[i];
+				if ( !target_actor.isAlive () )
+					continue;
+				
+				this.RegisterActor ( target_actor );
 			}
 		}
 	}
@@ -215,9 +218,10 @@ public class NavigationMap : Entity
 		return false;
 	}
 	
-	public bool GetRandomPos ( out int row, out int column ) {
+	public bool GetRandomPos ( GameActor actor, out int row, out int column ) {
 		row = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_ROW_COUNT - 1);
 		column = Random.Range ( 0, GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT- 1);
+//		return CanWalkTo ( actor, row, column );
 		return IsPosValid( row, column );
 	}
 	
@@ -236,6 +240,9 @@ public class NavigationMap : Entity
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
 				for ( int k = 0; k < actor_map_[i,j].Count; ++k ) {
+					if ( !actor_map_[i,j][k].isAlive() )
+						continue;
+					
 					if ( actor_map_[i,j][k].Type() == ActorType.monster ) {
 //						temp_distance = ( i * GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT + i );
 						temp_distance = CalculateDistance ( actor, i, j );
@@ -261,6 +268,9 @@ public class NavigationMap : Entity
 		for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 			for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
 				for ( int k = 0; k < actor_map_[i,j].Count; ++k ) {
+					if ( !actor_map_[i,j][k].isAlive() )
+						continue;
+					
 					if ( actor_map_[i,j][k].Type() == ActorType.human ) {
 						temp_distance = CalculateDistance ( actor, i, j );
 						if ( temp_distance < closest_distance ) {
@@ -290,6 +300,9 @@ public class NavigationMap : Entity
 			for ( int i = 0; i < GameSettings.GetInstance().MAP_TILE_ROW_COUNT; ++i ) {
 				for ( int j = 0; j < GameSettings.GetInstance().MAP_TILE_COLUMN_COUNT; ++j ) {
 					for ( int k = 0; k < actor_map_[i,j].Count; ++k ) {
+						if ( !actor_map_[i,j][k].isAlive() )
+							continue;
+						
 						if ( actor_map_[i,j][k].Type() == ActorType.human ) {
 							temp_distance = this.CalculateDistance ( actor, row, column );
 							if ( closest_distance > temp_distance ) {
@@ -346,7 +359,8 @@ public class NavigationMap : Entity
 	}
 	
 	public bool CanWalkTo ( GameActor actor, int row, int column ) {
-		return IsPosValid ( row, column ) && collision_map_[row,column] != NodeType.blocked;
+//		return IsPosValid ( row, column ) && collision_map_[row,column] != NodeType.blocked;
+		return IsPosValid ( row, column );
 	}
 	
 	public bool CanSeeInDiagonal ( GameActor actor, int row, int column ) {
@@ -421,7 +435,8 @@ public class NavigationMap : Entity
 					--new_map_y;
 			}
 			
-			return IsPosValid ( new_map_y, new_map_x );
+//			return IsPosValid ( new_map_y, new_map_x );
+			return CanWalkTo ( actor, new_map_y, new_map_x );
 		}
 		return false;
 	}
@@ -452,6 +467,10 @@ public class NavigationMap : Entity
 		bool is_human_died = false;
 		for ( int i = 0; i < actor_map_[row,column].Count; ++i ) {
 			target_actor = actor_map_[row,column][i];
+			
+			if ( !target_actor.isAlive() )
+				continue;
+			
 			if ( target_actor.Type() == ActorType.human ) {
 				if ( actor.isAlive() && target_actor.isAlive() ) {
 					actor.Combat ( target_actor );

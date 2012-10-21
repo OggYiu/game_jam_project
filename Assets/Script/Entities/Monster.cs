@@ -53,10 +53,10 @@ public class Monster : GameActor
 						for ( int i = 0; i < kill_counter; ++i ) {
 							scene_game.AddActorSpawner ( ActorType.monster, cur_map_y, cur_map_x );
 						}
-						Debug.Log ( "<Monster::_Thinker>, human eaten!" );
+//						Debug.Log ( "<Monster::_Thinker>, human eaten!" );
 					}
 				} else {
-					Debug.Log ( "<Monster::_Thinker>, running to human, heading to " + column + ", " + row );
+//					Debug.Log ( "<Monster::_Thinker>, running to human, heading to " + column + ", " + row );
 				}
 				
 				processed = true;
@@ -68,9 +68,9 @@ public class Monster : GameActor
 		}
 		
 		if ( !processed && !moving_to_target_ ) {
-			if ( NavigationMap.GetInstance().GetRandomPos ( out target_row_, out target_column_ ) ) {
+			if ( NavigationMap.GetInstance().GetRandomPos ( this, out target_row_, out target_column_ ) ) {
 				moving_to_target_ = true;
-				Debug.Log ( "<Monster::_Thinker>, random walking, heading to " + target_column_ + ", " + target_row_ );
+//				Debug.Log ( "<Monster::_Thinker>, random walking, heading to " + target_column_ + ", " + target_row_ );
 				processed = true;
 			}
 		}
@@ -93,7 +93,7 @@ public class Monster : GameActor
 					NavigationMap.GetInstance().RegisterActor ( this );
 				}
 				
-				Debug.Log ( "<Monster::_Thinker>, continue random walk " + target_column_ + ", " + target_row_ );
+//				Debug.Log ( "<Monster::_Thinker>, continue random walk " + target_column_ + ", " + target_row_ );
 				processed = true;
 			}
 		}

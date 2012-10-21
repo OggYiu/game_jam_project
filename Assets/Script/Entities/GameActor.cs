@@ -106,6 +106,7 @@ public class GameActor : Entity
 		target_actor.Init();
 		target_actor.transform.parent = SceneManager.GetInstance().entities_parent.transform;
 		target_actor.transform.localPosition = new Vector3 ( 0, 0, 0 );
+		target_actor.transform.localScale = new Vector3 ( 1, 1, 1 );
 		return target_actor;
 	}
 	
