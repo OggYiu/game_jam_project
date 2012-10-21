@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+	
 enum GameEndReason {
 	human_rulz,
 	monster_rulz,
@@ -41,9 +41,15 @@ public class Scene_Game : Scene {
 	bool is_human_die_sound_play_ = false;
 	bool navigation_map_inited_ = false;
 	
+	public GameObject result_human_win;
+	public GameObject result_monster_win;
+	
 	protected override void _Resolver (Hashtable args)
 	{
 		base._Resolver (args);
+		
+		result_human_win.active = false;
+		result_monster_win.active = false;
 		
 		game_end_text_ = this.GetComponentInChildren<GUIText>();
 		if ( game_end_text_ == null ) {
@@ -111,10 +117,16 @@ public class Scene_Game : Scene {
 				is_game_ended_ = true;	
 				switch ( game_end_reason_ ) {
 				case GameEndReason.human_rulz:
-					game_end_text_.text = "HUMAN RULZ!";
+					
+					result_human_win.active = true;
+					//game_end_text_.text = "HUMAN RULZ!";
+					
 					break;
 				case GameEndReason.monster_rulz:
-					game_end_text_.text = "MONSTER RULZ!";
+					
+					result_monster_win.active = true;
+					//game_end_text_.text = "MONSTER RULZ!";
+					
 					break;
 				case GameEndReason.time_out:
 					game_end_text_.text = "TIMES UP!";
