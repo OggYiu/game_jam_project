@@ -24,6 +24,7 @@ public class GameSettings : MonoBehaviour {
 	public int TURN_LIMIT = 0;
 	public int MONSTER_SPAWN_CHANCE = 10;
 	public int HUMAN_SPAWN_CHANCE = 10;
+	public int WATER_DAMAGE = 1;
 	
 	static private GameSettings s_instance = null;
 	static public GameSettings GetInstance() {
