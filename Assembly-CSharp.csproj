@@ -70,7 +70,6 @@
      <Compile Include="Assets\Script\PathFinding\NavGraph.cs" />
      <Compile Include="Assets\Script\PathFinding\NavGraphEdge.cs" />
      <Compile Include="Assets\Script\PathFinding\NavGraphNode.cs" />
-     <Compile Include="Assets\Script\PathFinding\NavGraphRenderer.cs" />
      <Compile Include="Assets\Script\PathFinding\PathEdge.cs" />
      <Compile Include="Assets\Script\Scenes\Scene.cs" />
      <Compile Include="Assets\Script\Scenes\SceneManager.cs" />
@@ -79,6 +78,7 @@
      <Compile Include="Assets\Script\Scenes\Scene_Star.cs" />
      <Compile Include="Assets\Script\Share\DebugUtils.cs" />
      <Compile Include="Assets\Script\Share\GameSettings.cs" />
+     <Compile Include="Assets\Script\Share\GameStatics.cs" />
      <Compile Include="Assets\Script\Share\GameUtils.cs" />
      <Compile Include="Assets\Script\Star\Star.cs" />
      <Compile Include="Assets\Script\TileMap\Base_Tile.cs" />

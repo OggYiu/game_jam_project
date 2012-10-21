@@ -6,7 +6,7 @@ public class NavGraph {
   //of the code on the printed page
   	protected List<NavGraphNode> nodes_ = null;
   	protected List< List<NavGraphEdge> > edges_ = null;
-	protected NavGraphRenderer debugRenderer_ = null;
+//	protected NavGraphRenderer debugRenderer_ = null;
  
   	//is this a directed graph?
   	//protected bool isDigraph_ = false;
@@ -319,11 +319,11 @@ public class NavGraph {
   	}
   	
 	public void Render() {
-		if ( debugRenderer_ == null ) {
-			debugRenderer_ = new NavGraphRenderer();
-		}
-		
-		debugRenderer_.Render(this);
+//		if ( debugRenderer_ == null ) {
+//			debugRenderer_ = new NavGraphRenderer();
+//		}
+//		
+//		debugRenderer_.Render(this);
 	}
 	
 	public List<NavGraphNode> GetNodes() { return nodes_; }

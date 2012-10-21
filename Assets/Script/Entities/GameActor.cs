@@ -9,19 +9,22 @@ public enum Directions {
 }
 
 public enum ActorType {
-	none,
 	human,
 	monster,
 }
 
 public class GameActor : Entity
 {
-	[SerializeField] int action_point_gainer_ = 0;
-	
 	Vector2 map_position_ = Vector2.zero;
 	int action_point_ = 0;
 	int age_ = 0;
 	protected ActorType type_;
+	protected int action_point_gainer_ = 0;
+	protected int health_ = 0;
+	protected int damage_ = 0;
+	protected bool moving_to_target_ = false;
+	protected int target_row_ = -1;
+	protected int target_column_ = -1;
 	
 	// Use this for initialization
 	void Start ()
@@ -38,6 +41,27 @@ public class GameActor : Entity
 	
 	}
 	
+	public bool isAlive() {
+		return health_ > 0;
+	}
+	
+	public void ReduceHealth ( int amount ) {
+		if ( health_ <= 0 ) {
+			return ;
+		}
+		
+		health_ -= amount;
+		if ( health_ <= 0 ) {
+			remove_count_down_ = 1;
+			NavigationMap.GetInstance().UnRegisterActor ( this );
+		}
+	}
+	
+	public void Combat ( GameActor actor ) {
+		this.ReduceHealth ( actor.damage );
+		actor.ReduceHealth ( this.damage );
+	}
+		
 	public ActorType Type () {
 		return type_;
 	}
@@ -115,6 +139,16 @@ public class GameActor : Entity
 	public Vector3 pos {
 		set { this.transform.localPosition= value; } 
 		get { return this.transform.localPosition; }
+	}
+	
+	public int health {
+		set {}
+		get { return health_; }
+	}
+	
+	public int damage {
+		set {}
+		get { return damage_; }
 	}
 }
 

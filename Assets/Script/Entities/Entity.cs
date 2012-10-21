@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
 	string entity_id_ = "";
-	protected bool is_disposed_ = false;
 //	bool is_started_ = false;
 	bool is_resolved_ = false;
+	bool need_removed_ = false;
 	Hashtable init_args_ = null;
+	protected bool is_disposed_ = false;
+	protected float remove_count_down_ = -1;
 	
 //	void Start () {
 //		is_started_ = true;
@@ -44,6 +46,17 @@ public class Entity : MonoBehaviour {
 	}
 	
 	public void OnUpdate ( float deltaTime = 0 ) {
+		if ( remove_count_down_ > 0 ) {
+			remove_count_down_ -= deltaTime;
+			
+			need_removed_ = remove_count_down_ <= 0;
+		}
+		
+		if ( need_removed_ ) {
+			return ;
+		}
+		
+		
 //		if ( !is_started_ ) {
 //			return ;
 //		}
@@ -110,4 +123,8 @@ public class Entity : MonoBehaviour {
 		return args;
 	}	
 	
+	public bool need_removed {
+		set {}
+		get { return need_removed_; }
+	}
 }
