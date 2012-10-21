@@ -85,6 +85,7 @@
      <Compile Include="Assets\Script\Star\Star.cs" />
      <Compile Include="Assets\Script\TileMap\Base_Tile.cs" />
      <Compile Include="Assets\Script\TileMap\Tile_Map.cs" />
+     <Compile Include="Assets\Script\TileMap\Tile_Map_UI.cs" />
      <Compile Include="Assets\iTween\Plugins\iTween.cs" />
      <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
      <Compile Include="Assets\iTween\Sample\RotateSample.cs" />
